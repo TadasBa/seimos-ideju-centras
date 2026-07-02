@@ -145,6 +145,48 @@
   flex: none;
 }
 
+.project-card summary > span:not(.project-card__meta) {
+  flex: 1;
+}
+
+.service-card__body .project-year {
+  align-self: flex-start;
+}
+
+.project-card__thumb {
+  flex: none;
+  width: 4.5rem;
+  height: 3.4rem;
+  object-fit: cover;
+  border-radius: var(--radius-btn);
+}
+
+/* Expanded project: photo beside the details */
+.accordion__body--media {
+  grid-template-columns: minmax(12rem, 18rem) 1fr;
+  align-items: start;
+}
+
+.project-card__photo {
+  width: 100%;
+  border-radius: var(--radius-md);
+}
+
+.accordion__content {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (max-width: 44rem) {
+  .accordion__body--media {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card__thumb {
+    display: none;
+  }
+}
+
 .project-year {
   flex: none;
   padding: 0.25rem 0.7rem;

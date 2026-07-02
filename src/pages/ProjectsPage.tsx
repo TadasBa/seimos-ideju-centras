@@ -73,24 +73,44 @@ export function ProjectsPage() {
                 open={project.id === openProjectId}
               >
                 <summary>
+                  {project.image ? (
+                    <img
+                      className="project-card__thumb"
+                      src={project.image}
+                      alt=""
+                      loading="lazy"
+                      width="72"
+                      height="54"
+                    />
+                  ) : null}
                   <span>{project.title}</span>
                   <span className="project-card__meta">
                     <span className="project-year">{project.year}</span>
                     <ChevronDownIcon className="accordion__chevron" />
                   </span>
                 </summary>
-                <div className="accordion__body">
-                  {project.description?.map((paragraph) => (
-                    <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-                  ))}
-                  <dl className="detail-grid">
-                    {project.details.map((detail) => (
-                      <div key={detail.label}>
-                        <dt>{detail.label}</dt>
-                        <dd>{detail.value}</dd>
-                      </div>
+                <div className={`accordion__body ${project.image ? 'accordion__body--media' : ''}`}>
+                  {project.image ? (
+                    <img
+                      className="project-card__photo"
+                      src={project.image}
+                      alt={`Projekto „${project.title}“ akimirka`}
+                      loading="lazy"
+                    />
+                  ) : null}
+                  <div className="accordion__content">
+                    {project.description?.map((paragraph) => (
+                      <p key={paragraph.slice(0, 40)}>{paragraph}</p>
                     ))}
-                  </dl>
+                    <dl className="detail-grid">
+                      {project.details.map((detail) => (
+                        <div key={detail.label}>
+                          <dt>{detail.label}</dt>
+                          <dd>{detail.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
                 </div>
               </details>
             ))}

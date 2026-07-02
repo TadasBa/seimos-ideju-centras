@@ -10,6 +10,7 @@ export const projectsPage = {
 export const projects: Project[] = [
   {
     id: 'placiau-nei-ekranai',
+    image: '/images/projects/placiau-nei-ekranai.webp',
     title: 'Plačiau nei ekranai',
     year: 2025,
     details: [
@@ -20,6 +21,7 @@ export const projects: Project[] = [
   },
   {
     id: 'vdc-paslaugu-uztikrinimas-2025',
+    image: '/images/projects/vdc-paslaugu-uztikrinimas-2025.webp',
     title: 'Debeikių vaikų dienos centro paslaugų užtikrinimo ir kokybės gerinimo projektas',
     year: 2025,
     details: [
@@ -33,6 +35,7 @@ export const projects: Project[] = [
   },
   {
     id: 'socialiniu-paslaugu-testinumo-pletra-2024',
+    image: '/images/projects/socialiniu-paslaugu-testinumo-pletra-2024.jpg',
     title: 'Socialinių paslaugų tęstinumo plėtros ir kokybės užtikrinimo projektas',
     year: 2024,
     details: [
@@ -46,6 +49,7 @@ export const projects: Project[] = [
   },
   {
     id: 'vdc-kiemo-aplinkos-pritaikymas-2024',
+    image: '/images/projects/vdc-kiemo-aplinkos-pritaikymas-2024.jpg',
     title: 'Debeikių vaikų dienos centro kiemo aplinkos pritaikymas ir paslaugų plėtra',
     year: 2024,
     details: [
@@ -59,6 +63,7 @@ export const projects: Project[] = [
   },
   {
     id: 'lnk-2023-spektaklis',
+    image: '/images/projects/lnk-2023-spektaklis.jpg',
     title: 'Vaikų dienos centro išvyka į Vilniuje vyksiantį lauko spektaklį pagal projektą „LNK 2023“',
     year: 2023,
     details: [
@@ -74,6 +79,7 @@ export const projects: Project[] = [
   },
   {
     id: 'z-karta-gamtoje-2023',
+    image: '/images/projects/z-karta-gamtoje-2023.jpg',
     title: 'Z karta gamtoje, pagal projektą „LNK 2023“',
     year: 2023,
     details: [
@@ -89,6 +95,7 @@ export const projects: Project[] = [
   },
   {
     id: 'femmes-deurope-saules-elektrine-2023',
+    image: '/images/projects/femmes-deurope-saules-elektrine-2023.jpg',
     title:
       'Association Femmes d’Europe parama saulės elektrinės įrengimui Debeikių dienos centre',
     year: 2023,
@@ -105,6 +112,7 @@ export const projects: Project[] = [
   },
   {
     id: 'vdc-testinumas-2023',
+    image: '/images/projects/vdc-testinumas-2023.jpg',
     title:
       'Debeikių vaikų dienos centro socialinių paslaugų tęstinumo ir kokybės užtikrinimo 2023 m. projektas',
     year: 2023,
@@ -121,6 +129,7 @@ export const projects: Project[] = [
   },
   {
     id: 'nvo-socialinis-verslas',
+    image: '/images/projects/nvo-socialinis-verslas.jpg',
     title: 'NVO socialinio verslo kūrimas ir plėtra',
     year: 2022,
     details: [
@@ -138,6 +147,7 @@ export const projects: Project[] = [
   },
   {
     id: 'partn-vdc-kiemas-2022',
+    image: '/images/projects/partn-vdc-kiemas-2022.jpg',
     title: 'Vaikų dienos centro dalinio kiemo sutvarkymo ir pritaikymo veiklai darbai pagal „PARTN VDC“',
     year: 2022,
     details: [
@@ -153,6 +163,7 @@ export const projects: Project[] = [
   },
   {
     id: 'nvo-sildymo-subsidija-2022',
+    image: '/images/projects/nvo-sildymo-subsidija-2022.jpg',
     title: 'NVO šildymo subsidija 2022',
     year: 2022,
     details: [
@@ -167,6 +178,7 @@ export const projects: Project[] = [
   },
   {
     id: 'vdc-testinumas-2022',
+    image: '/images/projects/vdc-testinumas-2022.jpg',
     title:
       'Debeikių vaikų dienos centro socialinių paslaugų tęstinumo ir kokybės užtikrinimo 2022 m. projektas',
     year: 2022,
@@ -183,6 +195,7 @@ export const projects: Project[] = [
   },
   {
     id: 'vega-modelis',
+    image: '/images/projects/vega-modelis.jpg',
     title:
       'Partneris projekte „Anykščių rajono savivaldybės mokyklų pažangos skatinimas diegiant vaiko emocinės gerovės aplinkos (VEGA) modelį“',
     year: 2022,
@@ -197,6 +210,7 @@ export const projects: Project[] = [
   },
   {
     id: 'jojimo-uzsiemimai-2022',
+    image: '/images/projects/jojimo-uzsiemimai-2022.jpg',
     title: 'Jojimo užsiėmimai vaikams / 2022',
     year: 2022,
     details: [
@@ -208,6 +222,7 @@ export const projects: Project[] = [
   },
   {
     id: 'pokyciu-sparnai',
+    image: '/images/projects/pokyciu-sparnai.jpg',
     title: 'Pokyčių sparnai 2020–2022',
     year: 2021,
     details: [
@@ -223,6 +238,7 @@ export const projects: Project[] = [
   },
   {
     id: 'vdc-testinumas-2021',
+    image: '/images/projects/vdc-testinumas-2021.jpg',
     title:
       'Debeikių vaikų dienos centro socialinių paslaugų tęstinumo ir kokybės užtikrinimo 2021 m. projektas',
     year: 2021,
@@ -239,6 +255,7 @@ export const projects: Project[] = [
   },
   {
     id: 'stipri-seima-2021',
+    image: '/images/projects/stipri-seima-2021.jpg',
     title: 'Stipri šeima – stipri visuomenė 2021',
     year: 2021,
     details: [
@@ -256,6 +273,7 @@ export const projects: Project[] = [
   },
   {
     id: 'paraiska-paramai-2021',
+    image: '/images/projects/paraiska-paramai-2021.jpg',
     title: 'Paraiška paramai gauti 2021',
     year: 2021,
     details: [
@@ -270,6 +288,7 @@ export const projects: Project[] = [
   },
   {
     id: 'stipri-seima-2020',
+    image: '/images/projects/stipri-seima-2020.jpg',
     title: 'Stipri šeima – stipri visuomenė 2020',
     year: 2020,
     details: [
@@ -287,6 +306,7 @@ export const projects: Project[] = [
   },
   {
     id: 'paraiska-paramai-2020',
+    image: '/images/projects/paraiska-paramai-2020.jpg',
     title: 'Paraiška paramai gauti 2020',
     year: 2020,
     details: [

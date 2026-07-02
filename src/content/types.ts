@@ -42,6 +42,8 @@ export interface Project {
   id: string
   title: string
   year: number
+  /** Photo from the project archive. */
+  image?: string
   /** Shown when the card is expanded. */
   details: ProjectDetail[]
   description?: string[]

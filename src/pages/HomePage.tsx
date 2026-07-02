@@ -139,11 +139,18 @@ export function HomePage() {
           </div>
           <div className="media-grid">
             {latestProjects.map((project) => (
-              <Link key={project.id} to={`/projektai#${project.id}`} className="card">
-                <span className="project-year">{project.year}</span>
-                <h3 style={{ marginTop: 'var(--space-3)', fontSize: 'var(--text-md)', lineHeight: 1.4 }}>
-                  {project.title}
-                </h3>
+              <Link key={project.id} to={`/projektai#${project.id}`} className="card service-card">
+                {project.image ? (
+                  <div className="service-card__media">
+                    <img src={project.image} alt="" loading="lazy" />
+                  </div>
+                ) : null}
+                <div className="service-card__body">
+                  <span className="project-year">{project.year}</span>
+                  <h3 style={{ marginTop: 'var(--space-3)', fontSize: 'var(--text-md)', lineHeight: 1.4 }}>
+                    {project.title}
+                  </h3>
+                </div>
               </Link>
             ))}
           </div>
