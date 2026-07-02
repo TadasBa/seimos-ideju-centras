@@ -13,12 +13,6 @@
     var(--cream);
 }
 
-.hero__embers {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
 .hero__inner {
   position: relative;
   display: grid;
@@ -94,14 +88,32 @@
   margin-inline: auto;
 }
 
+/* Warm firelight breathing behind the arch, like a lit hearth */
 .hero__media::after {
   content: '';
   position: absolute;
-  inset: 8% -6% -8% 6%;
+  inset: 4% -10% -6% -10%;
   z-index: -1;
-  border-radius: var(--radius-arch);
-  background: var(--fire-gradient-soft);
-  opacity: 0.55;
+  border-radius: 50%;
+  background: radial-gradient(
+    50% 50% at 50% 55%,
+    rgba(245, 158, 11, 0.4),
+    rgba(224, 92, 16, 0.18) 55%,
+    transparent 75%
+  );
+  filter: blur(24px);
+  animation: hero-glow-breathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes hero-glow-breathe {
+  from {
+    opacity: 0.55;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.03);
+  }
 }
 
 @media (max-width: 56rem) {

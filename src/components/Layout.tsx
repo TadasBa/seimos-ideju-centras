@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { EmberCanvas } from './EmberCanvas'
 
 /**
  * Page shell: header, routed content, footer.
@@ -32,6 +33,8 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <div className="hearth-glow" aria-hidden="true" />
+      <EmberCanvas />
     </div>
   )
 }

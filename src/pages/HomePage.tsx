@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
-import { EmberCanvas } from '../components/EmberCanvas'
 import { WordTrailBand } from '../components/WordTrailBand'
 import { SectionHeading } from '../components/SectionHeading'
 import { MediaCard } from '../components/MediaCard'
@@ -29,7 +28,6 @@ export function HomePage() {
     <>
       {/* ---------- Hero ---------- */}
       <section className="hero">
-        <EmberCanvas className="hero__embers" />
         <div className="container hero__inner">
           <div>
             <h1>VšĮ Šeimos idėjų centras</h1>

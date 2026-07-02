@@ -1,6 +1,40 @@
 /* ============================================================
-   Header, navigation, footer
+   Header, navigation, footer, ambient fire layers
    ============================================================ */
+
+/* ---------- Ambient fire: embers + hearth glow ---------- */
+
+/* Click-through ember particles floating over the whole page */
+.ember-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 40; /* under the sticky header (50) */
+  pointer-events: none;
+}
+
+/* Soft firelight rising from the bottom of the viewport — "šeimos židinys" */
+.hearth-glow {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34vh;
+  z-index: 39;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 120% at 50% 118%, rgba(245, 158, 11, 0.12), transparent 65%),
+    linear-gradient(to top, rgba(224, 92, 16, 0.07), transparent 70%);
+  animation: hearth-breathe 7s ease-in-out infinite alternate;
+}
+
+@keyframes hearth-breathe {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .site-header {
   position: sticky;
