@@ -59,11 +59,11 @@
   --space-9: 6.5rem;
 
   /* Radii — the arch is the site's recurring "fireplace frame" motif */
-  --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 28px;
-  --radius-arch: 999px 999px 28px 28px;
-  --radius-pill: 999px;
+  --radius-btn: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-arch: 999px 999px 20px 20px;
 
   /* Shadows — warm, soft */
   --shadow-sm: 0 1px 3px rgba(66, 43, 22, 0.08);

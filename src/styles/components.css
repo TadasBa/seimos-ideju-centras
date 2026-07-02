@@ -9,40 +9,38 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.6rem;
+  padding: 0.65rem 1.35rem;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-btn);
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 640;
+  font-weight: 620;
   text-decoration: none;
   cursor: pointer;
   transition:
-    transform var(--speed-fast) var(--ease-out),
-    box-shadow var(--speed-fast) var(--ease-out),
-    background var(--speed-fast) var(--ease-out);
+    background var(--speed-fast) var(--ease-out),
+    color var(--speed-fast) var(--ease-out),
+    box-shadow var(--speed-fast) var(--ease-out);
 }
 
 .btn:active {
-  transform: scale(0.97);
+  transform: translateY(1px);
 }
 
 .btn--fire {
-  background: var(--fire-gradient);
+  background: var(--ember);
   color: #fff;
-  box-shadow: 0 8px 22px -8px rgba(224, 92, 16, 0.55);
 }
 
 .btn--fire:hover {
   color: #fff;
-  box-shadow: 0 12px 28px -8px rgba(224, 92, 16, 0.7);
-  transform: translateY(-2px);
+  background: var(--ember-deep);
 }
 
 .btn--ghost {
   background: transparent;
   color: var(--ink);
-  box-shadow: inset 0 0 0 1.5px var(--cream-deep);
+  box-shadow: inset 0 0 0 1.5px var(--ink-faint);
 }
 
 .btn--ghost:hover {
@@ -263,9 +261,9 @@ a.card {
 }
 
 .chip {
-  padding: 0.45rem 1.1rem;
+  padding: 0.4rem 1rem;
   border: 1.5px solid var(--cream-deep);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-btn);
   background: transparent;
   font-size: var(--text-sm);
   font-weight: 600;
@@ -282,8 +280,8 @@ a.card {
 }
 
 .chip.is-active {
-  background: var(--fire-gradient);
-  border-color: transparent;
+  background: var(--ember);
+  border-color: var(--ember);
   color: #fff;
 }
 
