@@ -84,30 +84,46 @@
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
 }
 
 .site-nav a {
+  position: relative;
   display: inline-block;
-  padding: 0.45rem 0.85rem;
-  border-radius: var(--radius-pill);
+  padding: 0.45rem 0.7rem;
   font-size: var(--text-sm);
   font-weight: 560;
   color: var(--ink-soft);
   text-decoration: none;
-  transition:
-    background var(--speed-fast) var(--ease-out),
-    color var(--speed-fast) var(--ease-out);
+  transition: color var(--speed-fast) var(--ease-out);
+}
+
+/* Ember underline that kindles on hover */
+.site-nav a:not(.site-nav__cta)::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.15rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ember);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--speed-med) var(--ease-out);
 }
 
 .site-nav a:hover {
   color: var(--ink);
-  background: var(--cream-deep);
+}
+
+.site-nav a:not(.site-nav__cta):hover::after,
+.site-nav a.is-active::after {
+  transform: scaleX(1);
 }
 
 .site-nav a.is-active {
   color: var(--ember-deep);
-  background: var(--blush);
 }
 
 .site-nav__cta {
@@ -186,6 +202,11 @@
   .site-nav a {
     padding: 0.8rem 1rem;
     font-size: var(--text-md);
+  }
+
+  /* In the drawer the underline reads as a stray divider — colour is enough */
+  .site-nav a:not(.site-nav__cta)::after {
+    display: none;
   }
 
   .site-nav__cta {

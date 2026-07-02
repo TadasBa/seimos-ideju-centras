@@ -28,13 +28,11 @@ export const org = {
   },
 } as const
 
+/* Kept short on purpose — Spaudoje, Ataskaitos ir kt. live in the footer. */
 export const nav: NavItem[] = [
-  { label: 'Pagrindinis', to: '/' },
   { label: 'Apie mus', to: '/apie-mus' },
   { label: 'Paslaugos', to: '/#paslaugos' },
   { label: 'Projektai', to: '/projektai' },
-  { label: 'Spaudoje', to: '/spaudoje' },
-  { label: 'Ataskaitos', to: '/ataskaitos-dokumentai' },
   { label: 'Kontaktai', to: '/kontaktai' },
 ]
 
