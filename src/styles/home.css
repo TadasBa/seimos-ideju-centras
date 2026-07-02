@@ -309,9 +309,3 @@
   color: var(--on-night-soft);
   max-width: 48ch;
 }
-
-.cta-band__hint {
-  font-size: var(--text-xs);
-  color: var(--on-night-soft);
-  opacity: 0.7;
-}

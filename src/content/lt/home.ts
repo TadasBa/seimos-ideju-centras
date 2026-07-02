@@ -93,7 +93,6 @@ export const ctaBand = {
   title: 'Ieškote pagalbos? Susisiekite su mumis',
   text: 'Atsakysime į klausimus apie paslaugas, padėsime įvertinti situaciją ir rasti tinkamiausią pagalbos kelią.',
   ctaLabel: 'Susisiekti',
-  hint: 'Vedžiokite pelę arba braukite pirštu — atraskite, kuo gyvename',
   words: [
     'Supervizija',
     'Apsaugotas būstas',

@@ -187,7 +187,6 @@ export function HomePage() {
           <Link to="/kontaktai" className="btn btn--fire">
             {ctaBand.ctaLabel}
           </Link>
-          <span className="cta-band__hint">{ctaBand.hint}</span>
         </div>
       </WordTrailBand>
     </>
