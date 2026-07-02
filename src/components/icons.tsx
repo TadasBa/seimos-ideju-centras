@@ -5,9 +5,17 @@ interface IconProps {
 /** Small flame — the site's recurring mark, drawn from the logo idea. */
 export function FlameIcon({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2c.4 2.6-.6 4.3-2.1 5.9C8.3 9.6 6.6 11.3 6.6 14a5.4 5.4 0 0 0 10.8.3c1-.5 1.7-1.3 2-2.3.8 1.2 1.1 2.5 1.1 3.5A8.5 8.5 0 1 1 5 13.6C5 9 9.5 7.6 9.9 3.8c0 0 .9.2 2.1-1.8Z" transform="scale(0.92) translate(1 1)" />
-      <path d="M12.6 21a4.6 4.6 0 0 1-4.1-4.5c0-2 1.2-3.1 2.4-4.3.9-.9 1.8-1.8 2.2-3.2 1.6 1.5 3.5 3.7 3.5 6.4A4.9 4.9 0 0 1 12.6 21Z" opacity="0.55" />
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
     </svg>
   )
 }
