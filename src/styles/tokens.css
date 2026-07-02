@@ -1,0 +1,84 @@
+/* ============================================================
+   Design tokens — VšĮ Šeimos idėjų centras
+   Warm "fireplace" palette drawn from the organisation logo:
+   hands forming a flame — cream, ember orange, amber, warm ink.
+   ============================================================ */
+
+:root {
+  /* Surfaces */
+  --cream: #faf5ee;
+  --cream-soft: #f4ecdf;
+  --cream-deep: #eee2d0;
+  --white-warm: #fffdf9;
+
+  /* Text */
+  --ink: #2d241e;
+  --ink-soft: #5d5047;
+  --ink-faint: #8a7c70;
+
+  /* Fire accents */
+  --ember: #e05c10;
+  --ember-deep: #c04a08;
+  --flame: #f59e0b;
+  --flame-soft: #fcd34d;
+  --blush: #fbe8d8;
+
+  /* Dark band ("night by the fire") */
+  --night: #221914;
+  --night-soft: #372a20;
+  --night-line: #4d3b2d;
+  --on-night: #f7efe5;
+  --on-night-soft: #cbb9a8;
+
+  /* Gradients */
+  --fire-gradient: linear-gradient(120deg, var(--flame) 0%, var(--ember) 70%);
+  --fire-gradient-soft: linear-gradient(140deg, #fde8c8 0%, #fbd3ac 100%);
+
+  /* Typography */
+  --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-body: 'Inter Variable', system-ui, -apple-system, sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  --text-xl: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.7rem + 2.6vw, 3.5rem);
+  --text-hero: clamp(2.5rem, 1.8rem + 3.4vw, 4.25rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+
+  /* Radii — the arch is the site's recurring "fireplace frame" motif */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-arch: 999px 999px 28px 28px;
+  --radius-pill: 999px;
+
+  /* Shadows — warm, soft */
+  --shadow-sm: 0 1px 3px rgba(66, 43, 22, 0.08);
+  --shadow-md: 0 10px 30px -12px rgba(66, 43, 22, 0.22);
+  --shadow-lg: 0 24px 60px -20px rgba(66, 43, 22, 0.3);
+  --shadow-glow: 0 0 60px -10px rgba(245, 158, 11, 0.35);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --speed-fast: 180ms;
+  --speed-med: 320ms;
+  --speed-slow: 700ms;
+
+  /* Layout */
+  --container: 72rem;
+  --container-narrow: 46rem;
+  --header-height: 4.5rem;
+}
