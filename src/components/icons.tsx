@@ -94,18 +94,3 @@ export function FacebookIcon({ className }: IconProps) {
     </svg>
   )
 }
-
-/** Hand-drawn underline flourish for headings. */
-export function FlourishUnderline() {
-  return (
-    <svg viewBox="0 0 220 14" fill="none" preserveAspectRatio="none" aria-hidden="true">
-      <path
-        d="M4 9.5C40 4.5 90 3.5 130 5.5c30 1.5 60 3 86 1.5"
-        stroke="currentColor"
-        strokeWidth="4.5"
-        strokeLinecap="round"
-        opacity="0.85"
-      />
-    </svg>
-  )
-}

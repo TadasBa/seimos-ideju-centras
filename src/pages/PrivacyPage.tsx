@@ -1,5 +1,4 @@
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
-import { Reveal } from '../components/Reveal'
 import { SectionHeading } from '../components/SectionHeading'
 import { privacyPage } from '../content/lt/privacy'
 
@@ -10,11 +9,9 @@ export function PrivacyPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <Reveal>
-            <SectionHeading as="h1" title={privacyPage.title} flourish>
-              <p className="lead">{privacyPage.updated}</p>
-            </SectionHeading>
-          </Reveal>
+          <SectionHeading as="h1" title={privacyPage.title}>
+            <p className="lead">{privacyPage.updated}</p>
+          </SectionHeading>
         </div>
       </section>
 

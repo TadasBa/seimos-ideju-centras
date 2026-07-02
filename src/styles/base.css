@@ -151,46 +151,9 @@ button {
   max-width: 62ch;
 }
 
-/* Hand-drawn underline flourish (echoes the current site's accent) */
-.underline-flourish {
-  position: relative;
-  display: inline-block;
-}
-
-.underline-flourish > svg {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.32em;
-  width: 100%;
-  height: 0.34em;
-  color: var(--ember);
-}
-
-/* ---------- Scroll reveal ---------- */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity var(--speed-slow) var(--ease-out),
-    transform var(--speed-slow) var(--ease-out);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 
   *,
