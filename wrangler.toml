@@ -1,0 +1,8 @@
+name = "seimos-ideju-centras"
+compatibility_date = "2026-07-03"
+pages_build_output_dir = "dist"
+
+# Production and preview KV bindings are configured in the Cloudflare Pages
+# dashboard because namespace IDs are account-specific.
+# Required binding name:
+# CONTACT_RATE_LIMITER

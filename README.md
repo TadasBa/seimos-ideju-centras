@@ -3,6 +3,9 @@
 Website for [seimosidejucentras.lt](https://seimosidejucentras.lt) — React, TypeScript and Vite,
 deployed on Cloudflare Pages. The contact form runs as a Cloudflare Pages Function.
 
+Indexing is currently disabled until the final custom domain is routed. See
+[`CLOUDFLARE_DEPLOYMENT.md`](./CLOUDFLARE_DEPLOYMENT.md) before deploying.
+
 ## Getting started
 
 ```bash
@@ -11,6 +14,8 @@ npm run dev        # dev server → http://localhost:5173
 npm run build      # production build → dist/
 npm run preview    # preview the production build locally
 npm run preview:cf # preview with Pages Functions (requires wrangler)
+npm run test       # contact validation tests
+npm run check      # typecheck + tests + production build
 npm run typecheck  # type-check only
 ```
 
@@ -60,6 +65,7 @@ The form sends email via [Resend](https://resend.com) (free tier: 3,000 emails/m
    | `CONTACT_TO`     | `info@seimosidejucentras.lt`    |
    | `CONTACT_FROM`   | a verified sender address       |
 
-Without these variables the form returns an error with a mailto fallback — the rest of the site
-is unaffected. For local testing, put the same variables in a `.dev.vars` file (git-ignored) and
-run `npm run build && npm run preview:cf`.
+The contact form also requires a Cloudflare KV binding named `CONTACT_RATE_LIMITER` for rate
+limiting. Without these variables and the binding, the form returns an error with a mailto fallback —
+the rest of the site is unaffected. For local testing, put the same variables in a `.dev.vars` file
+(git-ignored) and run `npm run build && npm run preview:cf`.

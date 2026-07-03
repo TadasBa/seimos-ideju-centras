@@ -4,11 +4,16 @@
   "version": "1.0.0",
   "type": "module",
   "description": "VšĮ Šeimos idėjų centras — organizacijos svetainė",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "check": "npm run typecheck && npm run test && npm run build",
     "preview": "vite preview",
-    "preview:cf": "wrangler pages dev dist",
+    "preview:cf": "wrangler pages dev dist --kv=CONTACT_RATE_LIMITER",
+    "test": "vitest run",
     "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
@@ -25,6 +30,8 @@
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^4.5.0",
     "typescript": "~5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^4.1.9",
+    "wrangler": "^4.86.0"
   }
 }
