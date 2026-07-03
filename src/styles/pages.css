@@ -2,12 +2,13 @@
    Inner pages: services, projects, parama, ataskaitos, kontaktai
    ============================================================ */
 
-/* ---------- Split section: text + arch image ---------- */
+/* ---------- Split section: text + arch image ----------
+   Always exactly two children: a text column and .split__media. */
 
 .split {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--space-8);
+  gap: var(--space-7);
   align-items: center;
 }
 
@@ -15,9 +16,20 @@
   grid-template-columns: 0.9fr 1.1fr;
 }
 
+/* Long text next to a photo reads better anchored to the top */
+.split--start {
+  align-items: start;
+}
+
 .split__media .arch-frame {
   aspect-ratio: 4 / 4.6;
-  max-height: 30rem;
+  max-height: 28rem;
+  margin-inline: auto;
+}
+
+.split--start .split__media {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-5));
 }
 
 @media (max-width: 56rem) {
@@ -27,9 +39,29 @@
     gap: var(--space-6);
   }
 
+  .split--start .split__media {
+    position: static;
+  }
+
   .split__media .arch-frame {
     aspect-ratio: 16 / 11;
     max-height: none;
+    max-width: 26rem;
+  }
+}
+
+/* Two related content blocks side by side (e.g. who / what) */
+.pair-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-7);
+  align-items: start;
+}
+
+@media (max-width: 56rem) {
+  .pair-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 }
 
@@ -59,6 +91,33 @@
 
 .feature-list strong {
   color: var(--ink);
+}
+
+/* Sub-points of a parent list item — small ember dots instead of the
+   first-level checkmarks, so the two levels read apart at a glance */
+.feature-list--nested {
+  list-style: none;
+  margin-top: var(--space-3);
+  padding-left: var(--space-7);
+  display: grid;
+  gap: var(--space-2);
+  color: var(--ink-soft);
+}
+
+.feature-list--nested li {
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.feature-list--nested li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--flame);
 }
 
 /* ---------- Numbered steps (kaip gauti paslaugą / GPM) ---------- */
@@ -315,42 +374,13 @@
 
 .contact-panel {
   display: grid;
-  gap: var(--space-6);
-}
-
-/* ---------- Press page ---------- */
-
-.press-list {
-  display: grid;
-  gap: var(--space-4);
-}
-
-.press-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: var(--space-5);
 }
 
-.press-item h3 {
-  font-size: var(--text-lg);
-  line-height: 1.35;
-  margin-bottom: 0.35rem;
-}
-
-.press-item .muted {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-.press-item svg {
-  flex: none;
-  width: 1.3rem;
-  height: 1.3rem;
-  color: var(--ember);
+.contact-photo {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 /* ---------- Prose (privacy policy etc.) ---------- */
