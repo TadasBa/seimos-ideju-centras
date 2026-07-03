@@ -118,26 +118,27 @@ button {
   background: var(--cream-soft);
 }
 
+/* Roomier rhythm on small screens: less padding, not less whitespace */
+@media (max-width: 44rem) {
+  .section {
+    padding-block: var(--space-7);
+  }
+
+  .section--tight {
+    padding-block: var(--space-6);
+  }
+}
+
 /* ---------- Typographic helpers ---------- */
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: inline-block;
   font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ember-deep);
   margin-bottom: var(--space-3);
-}
-
-.eyebrow::before {
-  content: '';
-  width: 1.6rem;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--fire-gradient);
 }
 
 .section-title {
