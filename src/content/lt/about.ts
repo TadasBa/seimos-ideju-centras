@@ -4,6 +4,8 @@ export const aboutPage = {
   title: 'Apie mus',
   intro:
     'VšĮ Šeimos idėjų centras – nevyriausybinė organizacija, teikianti socialines, švietimo paslaugas vaikams, šeimoms, proto / psichikos negalią turintiems asmenims.',
+  introImage: '/images/apie-mus-akimirka.webp',
+  introImageAlt: 'Organizacijos veiklos akimirka lauke',
 
   missionTitle: 'Misija',
   mission:
@@ -11,6 +13,8 @@ export const aboutPage = {
 
   valuesTitle: 'Mūsų vertybės',
   historyTitle: 'Istorija',
+  historyImage: '/images/apie-mus-bustas.jpg',
+  historyImageAlt: 'Darbas su neįgaliaisiais centre',
 }
 
 export const aboutValues: ValueItem[] = [
