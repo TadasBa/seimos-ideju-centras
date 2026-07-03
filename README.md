@@ -1,90 +1,65 @@
-# VšĮ Šeimos idėjų centras — svetainė
+# VšĮ Šeimos idėjų centras
 
-Naujoji [seimosidejucentras.lt](https://seimosidejucentras.lt) svetainė: React + TypeScript + Vite,
-talpinama **Cloudflare Pages** (nemokamas planas), kontaktų forma — **Cloudflare Pages Function**.
+Website for [seimosidejucentras.lt](https://seimosidejucentras.lt) — React, TypeScript and Vite,
+deployed on Cloudflare Pages. The contact form runs as a Cloudflare Pages Function.
 
-## Paleidimas
+## Getting started
 
 ```bash
-npm install        # įdiegti priklausomybes
-npm run dev        # dev serveris → http://localhost:5173
-npm run build      # produkcinis build į dist/
-npm run preview    # peržiūrėti produkcinį build lokaliai
-npm run preview:cf # build peržiūra su Pages Functions (reikia: npm i -g wrangler)
-npm run typecheck  # TypeScript patikra
+npm install        # install dependencies
+npm run dev        # dev server → http://localhost:5173
+npm run build      # production build → dist/
+npm run preview    # preview the production build locally
+npm run preview:cf # preview with Pages Functions (requires wrangler)
+npm run typecheck  # type-check only
 ```
 
-> Kontaktų forma (`/api/contact`) dev režime (`npm run dev`) neveikia — funkcijos veikia tik
-> per `npm run preview:cf` (wrangler) arba Cloudflare Pages aplinkoje.
+The contact form (`/api/contact`) only runs under `npm run preview:cf` or on Cloudflare Pages —
+plain `npm run dev` serves the frontend only.
 
-## Struktūra
+## Structure
 
 ```
-├── public/               # statiniai failai (kopijuojami į dist/ be pakeitimų)
-│   ├── documents/        # metinės ataskaitos (PDF), paramos taisyklės
-│   ├── images/           # nuotraukos, logotipas
-│   └── _redirects        # SPA fallback Cloudflare Pages
+├── public/          # static assets, copied to dist/ as-is
+│   ├── documents/    # annual reports (PDF), donation terms
+│   └── images/
 ├── functions/
-│   └── api/contact.ts    # Cloudflare Pages Function — kontaktų formos siuntimas
+│   └── api/contact.ts  # Cloudflare Pages Function — sends the contact form via Resend
 └── src/
     ├── content/
-    │   ├── types.ts      # turinio modelio tipai (bendri visoms kalboms)
-    │   └── lt/           # VISAS svetainės tekstas lietuvių kalba
-    ├── components/       # perpanaudojami komponentai (Header, Footer, animacijos…)
-    ├── hooks/            # useDocumentMeta, usePrefersReducedMotion
-    ├── pages/            # puslapiai (1 failas = 1 maršrutas)
-    └── styles/           # tokens.css (dizaino kintamieji) + kiti stiliai
+    │   ├── types.ts    # content model shared by all locales
+    │   └── lt/         # all site copy, in Lithuanian
+    ├── components/     # shared components
+    ├── hooks/
+    ├── pages/          # one file per route
+    └── styles/         # tokens.css holds design variables
 ```
 
-### Turinys atskirtas nuo kodo
+All visible text lives in `src/content/lt/*.ts` — copy changes don't touch components. Adding a
+language later means a new `src/content/<locale>/` folder matching `content/types.ts`.
 
-Visas matomas tekstas gyvena `src/content/lt/*.ts` failuose — norint pakeisti tekstą,
-nereikia liesti komponentų. Kai prireiks EN / RU / UA kalbų: sukuriamas `src/content/en/`
-(ir t. t.) katalogas su tais pačiais failais pagal `src/content/types.ts` tipus, ir pridedamas
-kalbos prefiksas maršrutuose.
+## Deploying to Cloudflare Pages
 
-### Dizainas
+1. Push this repo to GitHub.
+2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+3. Add a custom domain under the Pages project's **Custom domains**.
 
-Spalvos, šriftai, atstumai — `src/styles/tokens.css` (CSS kintamieji). Motyvai: židinio arka
-(`.arch-frame`), kylančios žiežirbos (`EmberCanvas`), žodžių pėdsakas CTA juostoje
-(`WordTrailBand`). Visos animacijos gerbia `prefers-reduced-motion`.
+## Contact form (Resend)
 
-## Diegimas į Cloudflare Pages
+The form sends email via [Resend](https://resend.com) (free tier: 3,000 emails/month).
 
-1. Įkelkite repozitoriją į GitHub:
+1. Create a Resend account and verify the sending domain.
+2. Create an API key.
+3. In the Pages project's **Settings → Environment variables**, add:
 
-   ```bash
-   git init
-   git add .
-   git commit -m "Pradinė svetainės versija"
-   git remote add origin git@github.com:<jūsų-vartotojas>/<repo>.git
-   git push -u origin main
-   ```
+   | Variable         | Example                        |
+   | ---------------- | ------------------------------- |
+   | `RESEND_API_KEY` | Resend API key                  |
+   | `CONTACT_TO`     | `info@seimosidejucentras.lt`    |
+   | `CONTACT_FROM`   | a verified sender address       |
 
-2. Cloudflare Dashboard → **Workers & Pages → Create → Pages → Connect to Git** → pasirinkite repo:
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-
-   Nuo šiol kiekvienas `git push` automatiškai perdiegs svetainę.
-
-3. Prijunkite domeną: Pages projekto **Custom domains** → `seimosidejucentras.lt`.
-
-## Kontaktų formos nustatymas (Resend)
-
-Forma siunčia laiškus per [Resend](https://resend.com) (nemokamai iki 3 000 laiškų/mėn.):
-
-1. Užsiregistruokite resend.com, patvirtinkite `seimosidejucentras.lt` domeną (DNS įrašai — per Cloudflare).
-2. Sukurkite API raktą.
-3. Cloudflare Pages projekto **Settings → Environment variables** pridėkite:
-
-   | Kintamasis       | Reikšmė                                        |
-   | ---------------- | ---------------------------------------------- |
-   | `RESEND_API_KEY` | Resend API raktas                              |
-   | `CONTACT_TO`     | `info@seimosidejucentras.lt`                   |
-   | `CONTACT_FROM`   | `svetaine@seimosidejucentras.lt` (patvirtintas siuntėjas) |
-
-Kol kintamieji nenustatyti, forma grąžina klaidą su nuoroda parašyti tiesiogiai el. paštu —
-svetainė veikia ir be jos.
-
-Lokalus formos testavimas: sukurkite `.dev.vars` failą (jis yra `.gitignore`) su tais pačiais
-kintamaisiais ir paleiskite `npm run build && npm run preview:cf`.
+Without these variables the form returns an error with a mailto fallback — the rest of the site
+is unaffected. For local testing, put the same variables in a `.dev.vars` file (git-ignored) and
+run `npm run build && npm run preview:cf`.
