@@ -39,7 +39,7 @@ export function ContactForm() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, message, website }),
+        body: JSON.stringify({ name, email, phone, message, consent, website }),
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       setStatus('success')

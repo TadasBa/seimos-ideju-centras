@@ -17,5 +17,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["functions"]
+  "include": ["functions"],
+  "exclude": ["functions/**/*.test.ts"]
 }
