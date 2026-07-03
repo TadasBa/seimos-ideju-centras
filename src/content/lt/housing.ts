@@ -3,13 +3,15 @@ export const housing = {
   subtitle: 'Apgyvendinimo apsaugotame būste paslaugos',
   intro:
     'Nuo 2020 metų teikiame apsaugoto būsto paslaugas suaugusiems asmenims ir šeimoms, turintiems proto ar psichikos negalią, taip pat socialinę riziką patiriantiems žmonėms.',
-  heroImage: '/images/apsaugotas-bustas-veikla.jpg',
-  heroImageAlt: 'Žmonės, savarankiškai atliekantys kasdienius darbus',
+  heroImage: '/images/apsaugotas-bustas-gyvenimas.jpg',
+  heroImageAlt: 'Apsaugoto būsto gyventojai kasdienėje veikloje centre',
 
   whatTitle: 'Kas yra apsaugoto būsto paslauga?',
   what: 'Apgyvendinimas apsaugotame būste – tai socialinės priežiūros paslauga, priskiriama bendruomeninėms paslaugoms, skirta suaugusiems asmenims su negalia ar socialinę riziką patiriantiems asmenims, kurie yra iš dalies savarankiški ir kuriems reikalinga minimali specialistų pagalba bei socialinių įgūdžių palaikymas ar ugdymas, siekiant gyventi savarankiškai bendruomenėje. Paslauga derinama su individualia atvejo vadybininko (socialinio darbuotojo) pagalba bei kitomis bendruomenėje teikiamomis paslaugomis, kurios padeda plėtoti, palaikyti ar atkurti socialinius ir savarankiško gyvenimo įgūdžius, siekiant kuo didesnio asmenų savarankiškumo ir gyvenimo kokybės.',
 
   howTitle: 'Kaip mes dirbame?',
+  howImage: '/images/apsaugotas-bustas-veikla.jpg',
+  howImageAlt: 'Socialinis darbuotojas dirba kartu su paslaugos gavėjais',
   how: [
     'Asmeniui ar šeimai suteikiama gyvenamoji vieta bendruomenėje. Viename būste dažniausiai gyvena ne daugiau kaip du dalinai savarankiški asmenys arba viena šeima (tuomet gyventojų skaičius neribojamas).',
     'Teikiant paslaugas, itin svarbus paslaugos gavėjo ir socialinio darbuotojo bendradarbiavimas bei pasitikėjimu grįstas ryšys. Dirbdami kartu su paslaugos gavėjais, mūsų socialiniai darbuotojai:',

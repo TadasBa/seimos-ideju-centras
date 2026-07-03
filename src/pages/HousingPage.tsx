@@ -35,155 +35,173 @@ export function HousingPage() {
       </section>
 
       <section className="section--tight">
-        <div className="container container--narrow">
+        <div className="container">
           <SectionHeading title={housing.whatTitle} />
-          <p style={{ color: 'var(--ink-soft)' }}>{housing.what}</p>
+          <p style={{ color: 'var(--ink-soft)', maxWidth: '68ch' }}>{housing.what}</p>
         </div>
       </section>
 
       <section className="section section--alt">
-        <div className="container container--narrow">
-          <SectionHeading title={housing.howTitle} />
-          {housing.how.map((paragraph) => (
-            <p key={paragraph.slice(0, 30)} style={{ color: 'var(--ink-soft)', marginBottom: 'var(--space-3)' }}>
-              {paragraph}
-            </p>
-          ))}
-          <ul className="feature-list">
-            {housing.howList.map((line) => (
-              <li key={line.slice(0, 30)}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-
-          <h2 className="section-title" style={{ marginTop: 'var(--space-7)' }}>
-            {housing.strengthenTitle}
-          </h2>
-          <ul className="feature-list">
-            {housing.strengthen.map((line) => (
-              <li key={line}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-
-          <h2 className="section-title" style={{ marginTop: 'var(--space-7)' }}>
-            {housing.whoTitle}
-          </h2>
-          <ul className="feature-list">
-            {housing.who.map((line) => (
-              <li key={line.slice(0, 30)}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-
-          <h2 className="section-title" style={{ marginTop: 'var(--space-7)' }}>
-            {housing.compositionTitle}
-          </h2>
-          <ul className="feature-list">
-            {housing.composition.map((line) => (
-              <li key={line.slice(0, 30)}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-          <ul className="feature-list" style={{ marginTop: 'var(--space-3)', paddingLeft: 'var(--space-6)' }}>
-            {housing.compositionList.map((line) => (
-              <li key={line.slice(0, 30)}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="section">
         <div className="container">
-          <div className="split">
-            <SectionHeading title={housing.livingTitle} />
-            <p style={{ color: 'var(--ink-soft)', marginBottom: 'var(--space-3)' }}>{housing.livingIntro}</p>
-            <ul className="feature-list">
-              {housing.livingList.map((line) => (
-                <li key={line.slice(0, 30)}>
-                  <CheckIcon />
-                  <span>{line}</span>
-                </li>
+          <div className="split split--start">
+            <div>
+              <SectionHeading title={housing.howTitle} />
+              {housing.how.map((paragraph) => (
+                <p key={paragraph.slice(0, 30)} style={{ color: 'var(--ink-soft)', marginBottom: 'var(--space-3)' }}>
+                  {paragraph}
+                </p>
               ))}
-            </ul>
-            <p style={{ color: 'var(--ink-soft)', marginTop: 'var(--space-4)' }}>{housing.livingOutro}</p>
+              <ul className="feature-list">
+                {housing.howList.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <h2 className="section-title" style={{ marginTop: 'var(--space-6)' }}>
+                {housing.strengthenTitle}
+              </h2>
+              <ul className="feature-list">
+                {housing.strengthen.map((line) => (
+                  <li key={line}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="split__media">
               <div className="arch-frame">
-                <img src={housing.livingImage} alt={housing.livingImageAlt} loading="lazy" />
+                <img src={housing.howImage} alt={housing.howImageAlt} loading="lazy" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section section--alt">
-        <div className="container container--narrow">
-          <SectionHeading title={housing.financeTitle} />
-          <ul className="feature-list">
-            {housing.finance.map((line) => (
-              <li key={line.slice(0, 30)}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-
-          <h2 className="section-title" style={{ marginTop: 'var(--space-7)' }}>
-            {housing.stepsTitle}
-          </h2>
-          <ol className="steps">
-            {housing.steps.map((step) => (
-              <li key={step.title}>
-                <h3>{step.title}</h3>
-                {step.lines.map((line) => (
-                  <p key={line.slice(0, 30)}>{line}</p>
+      {/* Who can receive the service + what it consists of, side by side */}
+      <section className="section">
+        <div className="container">
+          <div className="pair-grid">
+            <div>
+              <SectionHeading title={housing.whoTitle} />
+              <ul className="feature-list">
+                {housing.who.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
                 ))}
-              </li>
-            ))}
-          </ol>
-
-          <h2 className="section-title" style={{ marginTop: 'var(--space-7)' }}>
-            {housing.applicantsTitle}
-          </h2>
-          <ul className="feature-list">
-            {housing.applicants.map((line) => (
-              <li key={line.slice(0, 30)}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="card" style={{ marginTop: 'var(--space-7)' }}>
-            <h2 style={{ fontSize: 'var(--text-xl)', marginBottom: 'var(--space-2)' }}>
-              {housing.contactTitle}
-            </h2>
-            <p style={{ marginBottom: 'var(--space-3)' }}>{housing.contactText}</p>
-            <div className="contact-card">
-              <a href={`tel:${org.contacts.housing.phoneHref}`}>
-                <PhoneIcon /> {org.contacts.housing.phone} ({org.contacts.housing.name.split(' ')[0]})
-              </a>
-              <a href={`mailto:${org.email}`}>
-                <MailIcon /> {org.email}
-              </a>
+              </ul>
+            </div>
+            <div>
+              <SectionHeading title={housing.compositionTitle} />
+              <ul className="feature-list">
+                {housing.composition.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul className="feature-list--nested">
+                {housing.compositionList.map((line) => (
+                  <li key={line.slice(0, 30)}>{line}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section" id="istorijos">
-        <div className="container container--narrow">
+      <section className="section section--alt">
+        <div className="container">
+          <div className="split split--reverse split--start">
+            <div className="split__media">
+              <div className="arch-frame">
+                <img src={housing.livingImage} alt={housing.livingImageAlt} loading="lazy" />
+              </div>
+            </div>
+            <div>
+              <SectionHeading title={housing.livingTitle} />
+              <p style={{ color: 'var(--ink-soft)', marginBottom: 'var(--space-3)' }}>{housing.livingIntro}</p>
+              <ul className="feature-list">
+                {housing.livingList.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <p style={{ color: 'var(--ink-soft)', marginTop: 'var(--space-4)' }}>{housing.livingOutro}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How to get the service: steps left, financing + contacts right */}
+      <section className="section">
+        <div className="container">
+          <div className="split split--start">
+            <div>
+              <SectionHeading title={housing.stepsTitle} />
+              <ol className="steps">
+                {housing.steps.map((step) => (
+                  <li key={step.title}>
+                    <h3>{step.title}</h3>
+                    {step.lines.map((line) => (
+                      <p key={line.slice(0, 30)}>{line}</p>
+                    ))}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div>
+              <SectionHeading title={housing.financeTitle} />
+              <ul className="feature-list">
+                {housing.finance.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <h2 className="section-title" style={{ marginTop: 'var(--space-6)' }}>
+                {housing.applicantsTitle}
+              </h2>
+              <ul className="feature-list">
+                {housing.applicants.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="card" style={{ marginTop: 'var(--space-6)' }}>
+                <h2 style={{ fontSize: 'var(--text-xl)', marginBottom: 'var(--space-2)' }}>
+                  {housing.contactTitle}
+                </h2>
+                <p style={{ marginBottom: 'var(--space-3)' }}>{housing.contactText}</p>
+                <div className="contact-card">
+                  <a href={`tel:${org.contacts.housing.phoneHref}`}>
+                    <PhoneIcon /> {org.contacts.housing.phone} ({org.contacts.housing.name.split(' ')[0]})
+                  </a>
+                  <a href={`mailto:${org.email}`}>
+                    <MailIcon /> {org.email}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--alt" id="istorijos">
+        <div className="container">
           <SectionHeading eyebrow={storiesTitle} title="Istorijos, kurios prasidėjo iš naujo" />
           <StoryAccordion stories={stories} openId={openStoryId} />
         </div>
