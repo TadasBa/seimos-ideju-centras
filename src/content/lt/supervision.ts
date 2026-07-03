@@ -12,7 +12,7 @@ export const supervision = {
   ],
 
   supervisorTitle: 'Supervizorius Gytis Baltrūnas',
-  supervisorImage: '/images/supervizija-gytis.png',
+  supervisorImage: '/images/gytis-baltrunas.jpg',
   supervisorImageAlt: 'Supervizorius Gytis Baltrūnas',
 
   educationTitle: 'Išsilavinimas',
@@ -29,15 +29,19 @@ export const supervision = {
     'Patiriamųjų mokymų, seminarų vedimas.',
   ],
 
+  experienceTitle: 'Patirtis ir unikalumas',
   quote:
     'Turiu ilgametę vadovavimo ir socialinio darbo su įvairiomis žmonių grupėmis patirtį, moku „nubraukti smėlį“ situacijose, kai žmonės pasakoja labiau tai, kaip turėtų būti, o ne tai, kaip yra. Nes pačiam ne kartą teko bendrauti su šizofrenija sergančiu ir jau ilgai vaistų nevartojančiu žmogumi, susitikti su nusikalstančiu jaunuoliu tiesiog gatvėje, intelekto negalią turintį asmenį sėkmingai apgyvendinti savarankiškai atskirame bute, kai visi kiti specialistai sako, jog tai neįmanoma ir t.t. ir pan.',
   quoteAuthor: 'Gytis Baltrūnas',
 
-  pressItem: {
+  /* The original site shows the seminar photo with a play button — a
+     shortcut to G. Baltrūno video interview in the Bernardinai article. */
+  videoItem: {
     title:
       'Globos namų pertvarkos ekspertas G. Baltrūnas: „Kol žmogus nenusipirks per mažų batų, neišmoks priimti tinkamo sprendimo“',
     url: 'https://www.bernardinai.lt/globos-namu-pertvarkos-ekspertas-g-baltrunas-kol-zmogus-nenusipirks-per-mazu-batu-neismoks-priimti-tinkamo-sprendimo/',
-    source: 'Bernardinai.lt',
+    image: '/images/supervizija-video-poster.webp',
+    tag: 'Bernardinai.lt · vaizdo įrašas',
   },
 
   faqTitle: 'Apie veiklą',
