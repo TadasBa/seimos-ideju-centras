@@ -59,20 +59,22 @@ export function SupportPage() {
 
       <section className="section section--alt">
         <div className="container">
-          <div className="split">
-            <SectionHeading title={supportPage.whyTitle} />
-            {supportPage.why.map((paragraph) => (
-              <p key={paragraph.slice(0, 30)} style={{ color: 'var(--ink-soft)', marginBottom: 'var(--space-3)' }}>
-                {paragraph}
-              </p>
-            ))}
-            <div className="hero__actions" style={{ marginTop: 'var(--space-5)' }}>
-              <Link to="/skirti-1-2-gpm" className="btn btn--fire">
-                {supportPage.gpmCta}
-              </Link>
-              <a href={footer.supportRules.href} target="_blank" rel="noreferrer" className="btn btn--ghost">
-                {supportPage.rulesLabel}
-              </a>
+          <div className="split split--start">
+            <div>
+              <SectionHeading title={supportPage.whyTitle} />
+              {supportPage.why.map((paragraph) => (
+                <p key={paragraph.slice(0, 30)} style={{ color: 'var(--ink-soft)', marginBottom: 'var(--space-3)' }}>
+                  {paragraph}
+                </p>
+              ))}
+              <div className="hero__actions" style={{ marginTop: 'var(--space-5)' }}>
+                <Link to="/skirti-1-2-gpm" className="btn btn--fire">
+                  {supportPage.gpmCta}
+                </Link>
+                <a href={footer.supportRules.href} target="_blank" rel="noreferrer" className="btn btn--ghost">
+                  {supportPage.rulesLabel}
+                </a>
+              </div>
             </div>
             <div className="card">
               <h3>{supportPage.helpTitle}</h3>
