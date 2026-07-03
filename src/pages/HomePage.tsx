@@ -29,10 +29,20 @@ export function HomePage() {
       {/* ---------- Hero ---------- */}
       <section className="hero">
         <div className="container hero__inner">
-          <div>
-            <h1>VšĮ Šeimos idėjų centras</h1>
-            <p className="hero__text">{hero.text}</p>
+          {/* On phones this block alone fills the first screen */}
+          <div className="hero__lead">
+            <div className="hero__media">
+              <div className="arch-frame">
+                <img src={hero.image} alt={hero.imageAlt} fetchPriority="high" />
+              </div>
+            </div>
+            <div className="hero__copy">
+              <h1>VšĮ Šeimos idėjų centras</h1>
+              <p className="hero__text">{hero.text}</p>
+            </div>
+          </div>
 
+          <div className="hero__more">
             <div className="hero__values">
               <h2>{hero.valuesTitle}</h2>
               <ul>
@@ -51,12 +61,6 @@ export function HomePage() {
               <Link to={hero.secondaryCta.to} className="btn btn--ghost">
                 {hero.secondaryCta.label}
               </Link>
-            </div>
-          </div>
-
-          <div className="hero__media">
-            <div className="arch-frame">
-              <img src={hero.image} alt={hero.imageAlt} fetchPriority="high" />
             </div>
           </div>
         </div>

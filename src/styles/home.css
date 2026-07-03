@@ -4,23 +4,39 @@
 
 /* ---------- Hero ---------- */
 
+/* Transparent — the warm backdrop and embers show through from behind */
 .hero {
   position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(60rem 30rem at 12% -18%, rgba(245, 158, 11, 0.18), transparent 60%),
-    radial-gradient(50rem 30rem at 95% 115%, rgba(224, 92, 16, 0.14), transparent 62%),
-    var(--cream);
 }
 
 .hero__inner {
   position: relative;
   display: grid;
+  grid-template-areas:
+    'copy media'
+    'more media';
   grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
-  gap: var(--space-8);
-  padding-block: var(--space-8);
-  min-height: calc(100dvh - var(--header-height) - 6rem);
+  grid-template-rows: auto auto;
+  align-content: center;
+  column-gap: var(--space-7);
+  padding-block: var(--space-6);
+  /* Fill the first screen — the next section starts below the fold */
+  min-height: calc(100dvh - var(--header-height));
+}
+
+/* Desktop: the lead wrapper dissolves so copy and photo sit in the grid */
+.hero__lead {
+  display: contents;
+}
+
+.hero__copy {
+  grid-area: copy;
+  align-self: end;
+}
+
+.hero__more {
+  grid-area: more;
+  align-self: start;
 }
 
 .hero h1 {
@@ -75,6 +91,8 @@
 
 /* Arch photo — echoes the fireplace / hands motif */
 .hero__media {
+  grid-area: media;
+  align-self: center;
   position: relative;
 }
 
@@ -114,18 +132,41 @@
 
 @media (max-width: 56rem) {
   .hero__inner {
-    grid-template-columns: 1fr;
-    gap: var(--space-7);
+    display: block;
     min-height: 0;
-    padding-block: var(--space-7);
+    padding-block: var(--space-5) var(--space-7);
   }
 
-  .hero__media {
-    order: -1;
+  /* The first phone screen holds exactly: photo, title, description.
+     Values and buttons live below the fold by construction. */
+  .hero__lead {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-height: calc(100svh - var(--header-height) - var(--space-5));
+  }
+
+  .hero__copy {
+    align-self: stretch;
+  }
+
+  .hero h1 {
+    margin-bottom: var(--space-3);
+  }
+
+  .hero__text {
+    font-size: var(--text-md);
+    margin-bottom: 0;
+  }
+
+  .hero__more {
+    padding-top: var(--space-6);
   }
 
   .hero__media .arch-frame {
     aspect-ratio: 4 / 4.4;
+    max-height: 36vh;
+    width: auto;
     max-width: 22rem;
   }
 }
@@ -143,11 +184,22 @@
   font-family: var(--font-display);
   font-size: var(--text-3xl);
   font-weight: 700;
-  background: var(--fire-gradient);
+  background: linear-gradient(120deg, var(--flame), var(--ember), var(--flame));
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   line-height: 1;
+  animation: year-glow 6s ease-in-out infinite alternate;
+}
+
+@keyframes year-glow {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
 }
 
 @media (max-width: 40rem) {
