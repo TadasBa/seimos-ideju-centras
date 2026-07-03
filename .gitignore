@@ -1,22 +1,35 @@
 # Dependencies
-node_modules
+node_modules/
 
-# Build output
-dist
-dist-ssr
+# Build and test output
+dist/
+dist-ssr/
+coverage/
+.vite/
+.vitest/
 
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
-coverage
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.local
+.dev.vars
+.dev.vars.*
 
 # Editor / OS
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
-*.local
+Thumbs.db
 
 # Local AI/editor assistant state
 .agents/
@@ -29,6 +42,5 @@ coverage
 .cody/
 .mcp.json
 
-# Cloudflare
-.wrangler
-.dev.vars
+# Cloudflare local state
+.wrangler/
