@@ -2,14 +2,18 @@
    Header, navigation, footer, ambient fire layers
    ============================================================ */
 
-/* ---------- Ambient fire: embers + hearth glow ---------- */
+/* ---------- Ambient fire: warm backdrop, hearth glow, embers ----------
+   All three are fixed layers *behind* the content (.page-content sits
+   above them), so the fire never overlaps text, images or cards. */
 
-/* Click-through ember particles floating over the whole page */
-.ember-layer {
+.page-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 40; /* under the sticky header (50) */
+  z-index: 0;
   pointer-events: none;
+  background:
+    radial-gradient(60rem 30rem at 12% -18%, rgba(245, 158, 11, 0.16), transparent 60%),
+    radial-gradient(50rem 30rem at 95% 115%, rgba(224, 92, 16, 0.12), transparent 62%);
 }
 
 /* Soft firelight rising from the bottom of the viewport — "šeimos židinys" */
@@ -18,12 +22,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 34vh;
-  z-index: 39;
+  height: 38vh;
+  z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(70% 120% at 50% 118%, rgba(245, 158, 11, 0.12), transparent 65%),
-    linear-gradient(to top, rgba(224, 92, 16, 0.07), transparent 70%);
+    radial-gradient(70% 120% at 50% 118%, rgba(245, 158, 11, 0.2), transparent 65%),
+    linear-gradient(to top, rgba(224, 92, 16, 0.12), transparent 70%);
   animation: hearth-breathe 7s ease-in-out infinite alternate;
 }
 
@@ -36,13 +40,25 @@
   }
 }
 
+.ember-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Content rides above the fire layers */
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Solid page colour so the bar blends into the screen behind it */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--cream) 88%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--cream);
   border-bottom: 1px solid transparent;
   transition: border-color var(--speed-med) var(--ease-out);
 }
@@ -217,6 +233,8 @@
 /* ---------- Footer ---------- */
 
 .site-footer {
+  position: relative;
+  z-index: 1; /* above the fixed fire layers */
   background: var(--night);
   color: var(--on-night-soft);
   padding-block: var(--space-8) var(--space-6);

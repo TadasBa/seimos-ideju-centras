@@ -28,13 +28,15 @@ export function Layout() {
       <a href="#main" className="skip-link">
         Pereiti prie turinio
       </a>
+      {/* Ambient fire layers — fixed, behind all content */}
+      <div className="page-backdrop" aria-hidden="true" />
+      <div className="hearth-glow" aria-hidden="true" />
+      <EmberCanvas />
       <Header />
-      <main id="main">
+      <main id="main" className="page-content">
         <Outlet />
       </main>
       <Footer />
-      <div className="hearth-glow" aria-hidden="true" />
-      <EmberCanvas />
     </div>
   )
 }
