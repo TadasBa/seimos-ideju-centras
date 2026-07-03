@@ -53,6 +53,8 @@ export interface PressArticle {
   title: string
   url: string
   source: string
+  /** Thumbnail from the article. */
+  image?: string
 }
 
 export interface MediaItem {

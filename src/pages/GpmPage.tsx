@@ -17,27 +17,39 @@ export function GpmPage() {
       </section>
 
       <section className="section--tight">
-        <div className="container container--narrow">
-          <ol className="steps">
-            {gpmPage.steps.map((step) => (
-              <li key={step.title}>
-                <h3>{step.title}</h3>
-                {step.lines.map((line) => (
-                  <p key={line.slice(0, 30)}>{line}</p>
+        <div className="container">
+          <div className="split split--start">
+            <div>
+              <ol className="steps">
+                {gpmPage.steps.map((step) => (
+                  <li key={step.title}>
+                    <h3>{step.title}</h3>
+                    {step.lines.map((line) => (
+                      <p key={line.slice(0, 30)}>{line}</p>
+                    ))}
+                  </li>
                 ))}
-              </li>
-            ))}
-          </ol>
+              </ol>
 
-          <a
-            href={gpmPage.edsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn--fire"
-            style={{ marginTop: 'var(--space-6)' }}
-          >
-            {gpmPage.edsCta} <ExternalIcon />
-          </a>
+              <a
+                href={gpmPage.edsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn--fire"
+                style={{ marginTop: 'var(--space-6)' }}
+              >
+                {gpmPage.edsCta} <ExternalIcon />
+              </a>
+            </div>
+            <div className="split__media">
+              <img
+                src={gpmPage.image}
+                alt={gpmPage.imageAlt}
+                loading="lazy"
+                style={{ width: '100%', maxWidth: '24rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', marginInline: 'auto' }}
+              />
+            </div>
+          </div>
         </div>
       </section>
 

@@ -36,6 +36,8 @@ export const gpmPage = {
   title: 'Kaip skirti 1,2 % GPM paramą',
   intro:
     'Dalį jau sumokėto gyventojų pajamų mokesčio galite skirti mūsų veiklai – tai nieko nekainuoja, bet vaikams reiškia labai daug.',
+  image: '/images/gpm-1-2-proc.webp',
+  imageAlt: '1,2 % GPM paramos skyrimo atmintinė',
 
   steps: [
     {

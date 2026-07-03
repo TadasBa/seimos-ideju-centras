@@ -1,6 +1,8 @@
 export const contactsPage = {
   title: 'Kontaktai',
   intro: 'Susisiekite – atsakysime į klausimus apie paslaugas ir bendradarbiavimą.',
+  photo: '/images/kontaktai-komanda.jpg',
+  photoAlt: 'Šeimos idėjų centro komanda',
 
   formTitle: 'Parašykite mums',
   form: {

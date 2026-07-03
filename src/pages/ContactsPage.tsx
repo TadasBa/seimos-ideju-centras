@@ -21,6 +21,12 @@ export function ContactsPage() {
       <section className="section--tight" style={{ paddingBottom: 'var(--space-8)' }}>
         <div className="container contact-layout">
           <div className="contact-panel">
+            <img
+              className="contact-photo"
+              src={contactsPage.photo}
+              alt={contactsPage.photoAlt}
+              loading="lazy"
+            />
             <div className="card contact-card">
               <strong>{org.contacts.director.name}</strong>
               <span className="muted">{org.contacts.director.role}</span>

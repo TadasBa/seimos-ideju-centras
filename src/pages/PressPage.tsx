@@ -29,16 +29,22 @@ export function PressPage() {
       </section>
 
       <section className="section">
-        <div className="container container--narrow">
+        <div className="container">
           <h2 className="section-title">{pressPage.articlesTitle}</h2>
-          <div className="press-list">
+          <div className="media-grid">
             {pressArticles.map((article) => (
-              <a key={article.url} className="card press-item" href={article.url} target="_blank" rel="noreferrer">
-                <div>
-                  <span className="muted">{article.source}</span>
+              <a key={article.url} className="card media-card" href={article.url} target="_blank" rel="noreferrer">
+                {article.image ? (
+                  <div className="media-card__thumb">
+                    <img src={article.image} alt="" loading="lazy" />
+                  </div>
+                ) : null}
+                <div className="media-card__body">
+                  <span className="muted">
+                    {article.source} <ExternalIcon />
+                  </span>
                   <h3>{article.title}</h3>
                 </div>
-                <ExternalIcon />
               </a>
             ))}
           </div>
