@@ -45,7 +45,7 @@ export function DayCenterPage() {
           <SectionHeading title={dayCenter.valuesTitle} />
           <div className="media-grid">
             {dayCenter.values.map((value) => (
-              <div key={value.title} className="card">
+              <div key={value.title} className="card value-card">
                 <FlameIcon className="value-list__flame" />
                 <h3 style={{ fontSize: 'var(--text-lg)', margin: 'var(--space-3) 0 var(--space-2)' }}>
                   {value.title}
@@ -59,16 +59,18 @@ export function DayCenterPage() {
 
       <section className="section">
         <div className="container">
-          <div className="split">
-            <SectionHeading title={dayCenter.activitiesTitle} />
-            <ul className="feature-list">
-              {dayCenter.activities.map((activity) => (
-                <li key={activity.slice(0, 30)}>
-                  <CheckIcon />
-                  <span>{activity}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="split split--start">
+            <div>
+              <SectionHeading title={dayCenter.activitiesTitle} />
+              <ul className="feature-list">
+                {dayCenter.activities.map((activity) => (
+                  <li key={activity.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{activity}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="split__media">
               <div className="arch-frame">
                 <img src={dayCenter.activitiesImage} alt={dayCenter.activitiesImageAlt} loading="lazy" />
@@ -79,60 +81,71 @@ export function DayCenterPage() {
       </section>
 
       <section className="section section--alt">
-        <div className="container container--narrow">
-          <SectionHeading title={dayCenter.infoTitle} />
-          <ul className="feature-list">
-            {dayCenter.info.map((line) => (
-              <li key={line.slice(0, 30)}>
-                <CheckIcon />
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="container">
+          <div className="split split--reverse split--start">
+            <div className="split__media">
+              <div className="arch-frame">
+                <img src={dayCenter.infoImage} alt={dayCenter.infoImageAlt} loading="lazy" />
+              </div>
+            </div>
+            <div>
+              <SectionHeading title={dayCenter.infoTitle} />
+              <ul className="feature-list">
+                {dayCenter.info.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
 
-          <h2 className="section-title" style={{ marginTop: 'var(--space-7)' }}>
-            {dayCenter.alsoTitle}
-          </h2>
-          <ul className="feature-list">
-            {dayCenter.also.map((item) => (
-              <li key={item.title}>
-                <CheckIcon />
-                <span>
-                  <strong>{item.title}.</strong> {item.description}
-                </span>
-              </li>
-            ))}
-          </ul>
+              <h2 className="section-title" style={{ marginTop: 'var(--space-6)' }}>
+                {dayCenter.alsoTitle}
+              </h2>
+              <ul className="feature-list">
+                {dayCenter.also.map((item) => (
+                  <li key={item.title}>
+                    <CheckIcon />
+                    <span>
+                      <strong>{item.title}.</strong> {item.description}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          <div className="split split--reverse">
+          <div className="split split--start">
+            <div>
+              <SectionHeading title={dayCenter.whyTitle} />
+              <p style={{ color: 'var(--ink-soft)' }}>{dayCenter.why}</p>
+              <p style={{ fontWeight: 620, marginTop: 'var(--space-4)' }}>{dayCenter.whyNote}</p>
+
+              <h3 style={{ margin: 'var(--space-5) 0 var(--space-3)', fontSize: 'var(--text-lg)' }}>
+                {dayCenter.supportHelpTitle}
+              </h3>
+              <ul className="feature-list">
+                {dayCenter.supportHelp.map((line) => (
+                  <li key={line.slice(0, 30)}>
+                    <CheckIcon />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <p style={{ fontWeight: 620, margin: 'var(--space-4) 0' }}>{dayCenter.supportOutro}</p>
+              <Link to="/parama" className="btn btn--fire">
+                {dayCenter.supportCta}
+              </Link>
+            </div>
             <div className="split__media">
               <div className="arch-frame">
                 <img src={dayCenter.campImage} alt={dayCenter.campImageAlt} loading="lazy" />
               </div>
             </div>
-            <SectionHeading title={dayCenter.whyTitle} />
-            <p style={{ color: 'var(--ink-soft)' }}>{dayCenter.why}</p>
-            <p style={{ fontWeight: 620, marginTop: 'var(--space-4)' }}>{dayCenter.whyNote}</p>
-
-            <h3 style={{ margin: 'var(--space-5) 0 var(--space-3)', fontSize: 'var(--text-lg)' }}>
-              {dayCenter.supportHelpTitle}
-            </h3>
-            <ul className="feature-list">
-              {dayCenter.supportHelp.map((line) => (
-                <li key={line.slice(0, 30)}>
-                  <CheckIcon />
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-            <p style={{ fontWeight: 620, margin: 'var(--space-4) 0' }}>{dayCenter.supportOutro}</p>
-            <Link to="/parama" className="btn btn--fire">
-              {dayCenter.supportCta}
-            </Link>
           </div>
         </div>
       </section>

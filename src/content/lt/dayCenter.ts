@@ -37,10 +37,12 @@ export const dayCenter = {
     'Išvykos kelis kartus per metus.',
     'Vasaros stovykla – ugdanti, smagi ir pilna įspūdžių.',
   ],
-  activitiesImage: '/images/vdc-uzsiemimai.webp',
-  activitiesImageAlt: 'Vaikų dienos centro užsiėmimai',
+  activitiesImage: '/images/vdc-uzsiemimas-stalo.jpg',
+  activitiesImageAlt: 'Vaikai žaidžia stalo žaidimus dienos centre',
 
   infoTitle: 'Svarbi informacija',
+  infoImage: '/images/vdc-darbas-su-vaikais.jpg',
+  infoImageAlt: 'Darbuotoja su vaikais dienos centro užsiėmime',
   info: [
     'Nemokamas maitinimas nuolat lankantiems vaikams (kartu gaminame užkandžius, šiltą maistą, valgome vaisius ir daržoves).',
     'Tiesiogiai su vaikais dirbame dvi dienas per savaitę, po pamokų, 4–6 val. per dieną.',
