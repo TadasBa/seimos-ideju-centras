@@ -18,7 +18,17 @@ coverage
 .DS_Store
 *.local
 
+# Local AI/editor assistant state
+.agents/
+.claude/
+.codex/
+.cursor/
+.continue/
+.windsurf/
+.aider*
+.cody/
+.mcp.json
+
 # Cloudflare
 .wrangler
 .dev.vars
-.claude/settings.local.json
