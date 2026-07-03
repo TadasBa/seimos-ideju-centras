@@ -1,2 +1,15 @@
 # Cloudflare Pages SPA fallback — serve index.html for all non-asset routes
+/supervizija-profesiniu-santykiu-konsultavimas /supervizija 301
+/supervizija-profesiniu-santykiu-konsultavimas/ /supervizija 301
+/apie-mus/ /apie-mus 301
+/vaiku-dienos-centras/ /vaiku-dienos-centras 301
+/apsaugotas-bustas/ /apsaugotas-bustas 301
+/supervizija/ /supervizija 301
+/projektai/ /projektai 301
+/spaudoje/ /spaudoje 301
+/parama/ /parama 301
+/skirti-1-2-gpm/ /skirti-1-2-gpm 301
+/ataskaitos-dokumentai/ /ataskaitos-dokumentai 301
+/kontaktai/ /kontaktai 301
+/privatumo-politika/ /privatumo-politika 301
 /* /index.html 200
