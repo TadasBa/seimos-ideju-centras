@@ -1,6 +1,6 @@
 # Cloudflare Pages redirects.
 #
-# 1. Legacy WordPress URLs -> their place in the new site.
+# 1. Legacy WordPress URLs and documents -> their place in the new site.
 # 2. Trailing-slash normalisation.
 # 3. SPA fallback (must stay last).
 
@@ -36,6 +36,35 @@
 /author/* / 301
 /category/* / 301
 /pirmasis-irasas / 301
+
+# --- Legacy WordPress documents -> /documents ---
+# Checksum-confirmed against the Wayback Machine's copies
+/wp-content/uploads/2000/07/aiskinamasis-rastas-uz-2021-m-VSI.pdf /documents/aiskinamasis-rastas-2021.pdf 301
+/wp-content/uploads/2020/07/balansas-2022.pdf /documents/balansas-2022.pdf 301
+/wp-content/uploads/2020/07/PLN.docx2022.pdf /documents/pelno-nuostoliu-2022.pdf 301
+/wp-content/uploads/2020/07/VsI-Seimos-ideju-centras-metine-veiklos-ataskaita_2022_pataisymai.pdf /documents/veiklos-ataskaita-2022.pdf 301
+/wp-content/uploads/2021/12/FINANSINIU-ATASKAITU-EL.-RINKINYS_2020M..pdf /documents/finansine-ataskaita-2020.pdf 301
+/wp-content/uploads/2021/12/METINIS-PRANESIMAS-VEIKLOS-ATASK._2020-m.pdf /documents/veiklos-ataskaita-2020.pdf 301
+/wp-content/uploads/2022/07/Metine-finansine-ataskaita_2021.pdf /documents/finansine-ataskaita-2021.pdf 301
+/wp-content/uploads/2022/07/VsI-Seimos-ideju-centras-metine-ataskaita_2021-3.pdf /documents/veiklos-ataskaita-2021.pdf 301
+/wp-content/uploads/2026/04/Paramos-taisykles_202604.pdf /documents/paramos-taisykles.pdf 301
+# 2026 re-uploads of the same files (same names and report-page slots)
+/wp-content/uploads/2026/03/aiskinamasis-rastas-uz-2021-m-VSI.pdf /documents/aiskinamasis-rastas-2021.pdf 301
+/wp-content/uploads/2026/03/balansas-2022.pdf /documents/balansas-2022.pdf 301
+/wp-content/uploads/2026/03/PLN.docx2022.pdf /documents/pelno-nuostoliu-2022.pdf 301
+/wp-content/uploads/2026/03/VsI-Seimos-ideju-centras-metine-veiklos-ataskaita_2022_pataisymai.pdf /documents/veiklos-ataskaita-2022.pdf 301
+/wp-content/uploads/2026/03/FINANSINIU-ATASKAITU-EL.-RINKINYS_2020M.pdf /documents/finansine-ataskaita-2020.pdf 301
+/wp-content/uploads/2026/03/METINIS-PRANESIMAS-VEIKLOS-ATASK._2020-m.pdf /documents/veiklos-ataskaita-2020.pdf 301
+/wp-content/uploads/2026/03/Metine-finansine-ataskaita_2021.pdf /documents/finansine-ataskaita-2021.pdf 301
+/wp-content/uploads/2026/03/VsI-Seimos-ideju-centras-metine-ataskaita_2021-3.pdf /documents/veiklos-ataskaita-2021.pdf 301
+# Same year and type on the old reports page, confirmed from document text
+/wp-content/uploads/2026/03/Aiskinamasis-rastas-uz-2022-m-VSI.docx /documents/aiskinamasis-rastas-2022.docx 301
+/wp-content/uploads/2026/03/Metine-veiklos-ataskaita_2023.pdf /documents/veiklos-ataskaita-2023.pdf 301
+/wp-content/uploads/2026/03/Finansiniu-ataskaitu-rinkinys_2023.pdf /documents/finansine-ataskaita-2023.pdf 301
+/wp-content/uploads/2026/03/Metine-veiklos-ataskaita_2024.pdf /documents/veiklos-ataskaita-2024.pdf 301
+/wp-content/uploads/2026/03/Finansiniu-ataskaitu-rinkinys_2024.pdf /documents/finansine-ataskaita-2024.pdf 301
+/wp-content/uploads/2026/05/VsI-Seimos-ideju-centras-2025-metu-veiklos-ataskaita.pdf /documents/veiklos-ataskaita-2025.pdf 301
+/wp-content/uploads/2026/05/Metiniu-finansiniu-ataskaitu-rinkinys_2025_pasirasyas.pdf /documents/finansine-ataskaita-2025.pdf 301
 
 # --- Trailing-slash normalisation ---
 /apie-mus/ /apie-mus 301
