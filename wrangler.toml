@@ -2,7 +2,15 @@ name = "seimos-ideju-centras"
 compatibility_date = "2026-07-03"
 pages_build_output_dir = "dist"
 
-# Production and preview KV bindings are configured in the Cloudflare Pages
-# dashboard because namespace IDs are account-specific.
-# Required binding name:
-# CONTACT_RATE_LIMITER
+# This file is the source of truth for the Pages project's variables and
+# bindings. RESEND_API_KEY is a secret: set it as an encrypted Pages secret
+# (see CLOUDFLARE_DEPLOYMENT.md), never here.
+
+[vars]
+CONTACT_TO = "info@seimosidejucentras.lt"
+CONTACT_FROM = "svetaine@forms.seimosidejucentras.lt"
+
+# Existing namespace "seimos-ideju-centras-contact-rate-limit"
+[[kv_namespaces]]
+binding = "CONTACT_RATE_LIMITER"
+id = "a7019e694d214d55bb436705e4e0dcdf"
