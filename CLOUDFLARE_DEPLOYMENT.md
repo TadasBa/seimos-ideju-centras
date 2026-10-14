@@ -32,28 +32,48 @@ Sitemap: https://seimosidejucentras.lt/sitemap.xml
 - Root directory: repository root
 - Node version: `22`
 
-## Required environment variables
+## Variables, bindings and secrets
 
-Set these in Cloudflare Pages under `Settings > Environment variables`:
+`wrangler.toml` is the source of truth for this Pages project's
+configuration. Because the project has a `wrangler.toml`, Cloudflare manages
+its plain variables and bindings from that file, and they can't be edited in
+the dashboard. Change them in `wrangler.toml` and redeploy.
 
-| Variable | Environment | Notes |
+| Name | Kind | Where it is configured |
 | --- | --- | --- |
-| `NODE_VERSION` | Production and preview | `22` |
-| `RESEND_API_KEY` | Production and preview | Resend API key |
-| `CONTACT_TO` | Production and preview | Destination mailbox, e.g. `info@seimosidejucentras.lt` |
-| `CONTACT_FROM` | Production and preview | Verified sender, e.g. `svetaine@seimosidejucentras.lt` |
+| `CONTACT_TO` | Plain variable | `wrangler.toml` → `[vars]` |
+| `CONTACT_FROM` | Plain variable | `wrangler.toml` → `[vars]` (must be a sender verified in Resend) |
+| `CONTACT_RATE_LIMITER` | Workers KV binding | `wrangler.toml` → `[[kv_namespaces]]`, namespace `seimos-ideju-centras-contact-rate-limit` |
+| `RESEND_API_KEY` | Secret | Encrypted Cloudflare Pages secret — never in `wrangler.toml` or any committed file |
 
-## Required binding
+The Node version for builds comes from `.node-version` / `.nvmrc` in the
+repository, so no `NODE_VERSION` variable is needed.
 
-The contact form requires a KV namespace binding for rate limiting.
+### Setting the Resend API key
 
-1. Create a KV namespace, for example `seimos-ideju-centras-contact-rate-limit`.
-2. Open the Pages project.
-3. Go to `Settings > Bindings > Add > KV namespace`.
-4. Variable name: `CONTACT_RATE_LIMITER`.
-5. Select the KV namespace.
-6. Add the same binding for preview if you use preview deployments.
-7. Redeploy after adding the binding.
+Set `RESEND_API_KEY` as an encrypted secret, either with Wrangler (it prompts
+for the value, so the key never appears in shell history):
+
+```bash
+npx wrangler pages secret put RESEND_API_KEY --project-name seimos-ideju-centras
+```
+
+or in the dashboard under `Workers & Pages > seimos-ideju-centras > Settings >
+Variables and Secrets > Add`, with type `Secret`. Redeploy afterwards so the
+running deployment picks it up.
+
+Secrets are stored per environment. If preview deployments should send email
+too, add the secret for the preview environment as well.
+
+### KV namespace
+
+The rate limiter uses the existing namespace
+`seimos-ideju-centras-contact-rate-limit`; its ID is in `wrangler.toml`. Don't
+create a new namespace. To look the ID up again:
+
+```bash
+npx wrangler kv namespace list
+```
 
 ## Local checks
 
@@ -71,12 +91,12 @@ npm run build
 npm run preview:cf
 ```
 
-Create a local `.dev.vars` file for Resend values. Do not commit it.
+`wrangler pages dev` reads `[vars]` and the KV binding from `wrangler.toml`
+(KV is simulated locally). Put the Resend key in a local `.dev.vars` file,
+which is gitignored and must stay that way:
 
 ```txt
 RESEND_API_KEY=...
-CONTACT_TO=info@seimosidejucentras.lt
-CONTACT_FROM=svetaine@seimosidejucentras.lt
 ```
 
 ## Automatic deploy pipeline
