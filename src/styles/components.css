@@ -1,6 +1,349 @@
 /* ============================================================
-   Shared components: buttons, cards, accordions, forms, misc
+   Shared components: motion primitives, carousel, buttons, cards,
+   accordions, forms, misc
    ============================================================ */
+
+/* ---------- Scribble underline ----------
+   Behind the text, 30% of the line high, hanging 20% below it. The path
+   draws from 0 to full over 1.8s cubic-bezier(.65,0,.35,1). */
+
+.scribble {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 0 3px;
+}
+
+.scribble__line {
+  position: absolute;
+  left: 0;
+  bottom: -20%;
+  z-index: -1;
+  width: 100%;
+  height: 30%;
+  color: var(--coral);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.scribble__line path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+
+.scribble.is-drawn .scribble__line path {
+  stroke-linecap: round;
+  opacity: 1;
+  animation: scribble-draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes scribble-draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Headings that carry a scribble: 2vw on desktop, 4vw tablet, 5vw phone */
+.hl-heading {
+  font-size: 2vw;
+  line-height: 1.2;
+}
+
+@media (max-width: 999px) {
+  .hl-heading {
+    font-size: 4vw;
+  }
+}
+
+@media (max-width: 690px) {
+  .hl-heading {
+    font-size: 5vw;
+  }
+}
+
+/* ---------- Column entrance ---------- */
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal[data-effect='fade-in-from-bottom'] {
+  transform: translateY(100px);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 750ms var(--ease-out-cubic) var(--reveal-delay, 0ms),
+    transform 750ms var(--ease-out-cubic) var(--reveal-delay, 0ms);
+}
+
+/* ---------- Word-by-word reveal ---------- */
+
+.words__word {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  line-height: 1.2;
+}
+
+.words__inner {
+  position: relative;
+  display: inline-block;
+  transition:
+    transform 1.2s var(--ease-swift),
+    opacity 1.2s var(--ease-swift),
+    filter 1.2s var(--ease-swift);
+}
+
+/* default: each word slides up out of its own clipped box */
+.words--default .words__word {
+  overflow: hidden;
+}
+
+.words--default .words__inner {
+  transform: translateY(1.3em);
+}
+
+/* blur-bottom: each word rises a little while coming into focus */
+.words--blur-bottom .words__inner {
+  filter: blur(10px);
+  opacity: 0;
+  transform: translateY(0.25em);
+}
+
+.words.is-in .words__inner {
+  filter: none;
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Draggable carousel ---------- */
+
+.carousel {
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.carousel__viewport {
+  position: relative;
+  cursor: grab;
+  touch-action: pan-y;
+  outline-offset: 6px;
+}
+
+.carousel__viewport.is-pointer-down,
+.carousel__viewport.is-pointer-down a {
+  cursor: grabbing;
+}
+
+.carousel__viewport.is-dragging .carousel__cell {
+  pointer-events: none;
+}
+
+.carousel__viewport img {
+  -webkit-user-drag: none;
+}
+
+.carousel__slider {
+  display: flex;
+  will-change: transform;
+}
+
+.carousel__cell {
+  flex: none;
+}
+
+/* Wrap mode: one cell per view, cells positioned individually */
+.carousel--wrap .carousel__viewport {
+  overflow: hidden;
+  transition: height 0.4s var(--ease-swift);
+}
+
+.carousel--wrap .carousel__slider {
+  position: relative;
+  height: 100%;
+}
+
+.carousel--wrap .carousel__cell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Progress: hairline track with a coral bar for the current cell */
+.carousel__progress {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+}
+
+.carousel__progress::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1px;
+  border-top: 1px solid #ddd;
+}
+
+.carousel__progress span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 3px;
+  background: var(--coral);
+  will-change: transform;
+}
+
+/* ---------- Drag indicator (follows the pointer over carousels) ---------- */
+
+.drag-indicator {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 400;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.drag-indicator__bg {
+  position: absolute;
+  inset: 0;
+}
+
+/* Frosted "Tempti" tooltip beside the cursor (projects) */
+.drag-indicator--tooltip {
+  margin: 12px 0 0 12px;
+  padding: 7px 14px;
+  line-height: 1;
+}
+
+.drag-indicator--tooltip .drag-indicator__bg {
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: scale(0.65);
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+}
+
+.drag-indicator--tooltip .drag-indicator__inner {
+  position: relative;
+  display: block;
+  font-size: 14px;
+  font-weight: var(--weight-body);
+  color: #000;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.drag-indicator--tooltip.is-visible .drag-indicator__bg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.drag-indicator--tooltip.is-visible .drag-indicator__inner {
+  opacity: 1;
+}
+
+/* Coral disc with arrows, centred on the cursor (stories) */
+.drag-indicator--circle {
+  width: 94px;
+  height: 94px;
+  margin: -47px 0 0 -47px;
+}
+
+.drag-indicator--circle .drag-indicator__bg {
+  inset: -2px 2px 2px -2px;
+  border-radius: 50%;
+  background: var(--coral);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: scale(0.2);
+  transition:
+    transform 0.45s ease,
+    opacity 0.3s ease;
+}
+
+.drag-indicator--circle.is-visible .drag-indicator__bg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.drag-indicator--circle.is-visible.is-pressed .drag-indicator__bg {
+  transform: scale(0.15);
+}
+
+.drag-indicator--circle .drag-indicator__inner {
+  position: absolute;
+  inset: 0;
+}
+
+.drag-indicator__arrow {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 11px;
+  margin-top: -6px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    stroke 0.3s ease;
+}
+
+.drag-indicator__arrow--prev {
+  left: 25px;
+  transform: translateX(17px);
+}
+
+.drag-indicator__arrow--next {
+  right: 27px;
+  transform: translateX(-17px);
+}
+
+.drag-indicator--circle.is-visible .drag-indicator__arrow {
+  opacity: 1;
+  transform: none;
+  transition:
+    transform 0.45s ease,
+    opacity 0.3s ease,
+    stroke 0.3s ease;
+}
+
+.drag-indicator--circle.is-visible.is-pressed .drag-indicator__arrow {
+  stroke: var(--coral);
+}
+
+.drag-indicator--circle.is-visible.is-pressed .drag-indicator__arrow--prev {
+  transform: translateX(-10px);
+}
+
+.drag-indicator--circle.is-visible.is-pressed .drag-indicator__arrow--next {
+  transform: translateX(10px);
+}
 
 /* ---------- Buttons ---------- */
 
@@ -9,13 +352,13 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.35rem;
+  padding: 0.7rem 1.5rem;
   border: none;
   border-radius: var(--radius-btn);
   font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 620;
-  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
   cursor: pointer;
   transition:
     background var(--speed-fast) var(--ease-out),
@@ -23,185 +366,216 @@
     box-shadow var(--speed-fast) var(--ease-out);
 }
 
-.btn:active {
-  transform: translateY(1px);
-}
-
 .btn--fire {
-  background: var(--ember);
+  background: var(--coral-ink);
   color: #fff;
 }
 
 .btn--fire:hover {
   color: #fff;
-  background: var(--ember-deep);
+  background: var(--coral-deep);
 }
 
 .btn--ghost {
   background: transparent;
   color: var(--ink);
-  box-shadow: inset 0 0 0 1.5px var(--ink-faint);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
 }
 
 .btn--ghost:hover {
-  color: var(--ember-deep);
-  box-shadow: inset 0 0 0 1.5px var(--ember);
+  color: var(--coral-ink);
+  box-shadow: inset 0 0 0 1.5px var(--coral);
+}
+
+/* Row of actions (Parama page) */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 /* ---------- Cards ---------- */
 
 .card {
-  background: var(--white-warm);
-  border: 1px solid var(--cream-deep);
-  border-radius: var(--radius-lg);
+  background: var(--white);
+  border: 1px solid var(--grey-line);
+  border-radius: var(--radius-md);
   padding: var(--space-6);
-  box-shadow: var(--shadow-sm);
-  transition:
-    transform var(--speed-med) var(--ease-out),
-    box-shadow var(--speed-med) var(--ease-out);
 }
 
 a.card {
   display: block;
   color: inherit;
-  text-decoration: none;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
 }
 
 .card h3 {
-  font-size: var(--text-xl);
+  font-size: 20px;
+  line-height: 1.3;
   margin-bottom: var(--space-3);
 }
 
-.card p {
-  color: var(--ink-soft);
-  font-size: var(--text-sm);
+/* ---------- Thumb card (press/video thumbnails on inner pages) ---------- */
+
+.thumb-card {
+  display: block;
+  color: inherit;
 }
 
-/* Service card with arch image */
-.service-card {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 0;
-}
-
-.service-card__media {
+.thumb-card__media {
   position: relative;
-  aspect-ratio: 5 / 3.4;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: var(--fire-gradient-soft);
+  border-radius: var(--radius-md);
+  background: var(--grey-band);
 }
 
-.service-card__media img {
+.thumb-card__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform var(--speed-slow) var(--ease-out);
 }
 
-.service-card:hover .service-card__media img {
-  transform: scale(1.045);
+.thumb-card:hover .thumb-card__media img {
+  transform: scale(1.04);
 }
 
-.service-card__body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: var(--space-5) var(--space-5) var(--space-6);
-}
-
-.service-card__body p {
-  flex: 1;
-}
-
-.service-card__more {
+.thumb-card h3 {
   margin-top: var(--space-4);
-  font-weight: 640;
-  font-size: var(--text-sm);
-  color: var(--ember-deep);
-  display: inline-flex;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.thumb-card:hover h3 {
+  color: var(--coral-ink);
+}
+
+.thumb-card .muted {
+  display: block;
+  margin-top: var(--space-3);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.thumb-card__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.thumb-card__play span {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: #fff;
+  transition: transform 0.7s cubic-bezier(0.2, 1, 0.22, 1);
+}
+
+.thumb-card:hover .thumb-card__play span {
+  transform: scale(1.14);
+}
+
+/* ---------- Media row (press list: photo left, title right) ---------- */
+
+.media-row {
+  display: grid;
+  grid-template-columns: 22rem 1fr;
+  gap: var(--space-6);
   align-items: center;
-  gap: 0.4rem;
+  color: inherit;
 }
 
-.service-card:hover .service-card__more {
-  color: var(--ember);
+.media-row + .media-row {
+  margin-top: var(--space-7);
 }
 
-/* Value cards: the flame kindles when you warm it with the cursor */
-.value-card .value-list__flame {
-  transition: color var(--speed-fast) var(--ease-out);
+.media-row__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--grey-band);
 }
 
-.value-card:hover .value-list__flame {
-  color: var(--flame);
-  animation: flame-kindle 0.9s ease-in-out infinite;
+.media-row__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--speed-slow) var(--ease-out);
 }
 
-@keyframes flame-kindle {
-  0%,
-  100% {
-    transform: scale(1.08) rotate(-3deg);
+.media-row:hover .media-row__media img {
+  transform: scale(1.04);
+}
+
+.media-row h3 {
+  font-size: 22px;
+  line-height: 1.3;
+  margin-bottom: var(--space-3);
+}
+
+.media-row .muted {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 44rem) {
+  .media-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
   }
-  50% {
-    transform: scale(1.18) rotate(3deg);
-  }
 }
 
-/* ---------- Value list ("Mūsų vertybės") ---------- */
+/* ---------- Value / feature list ("Mūsų vertybės") ---------- */
 
 .value-list {
   list-style: none;
   padding: 0;
   display: grid;
-  gap: var(--space-3);
+  gap: 5px;
 }
 
 .value-list li {
-  display: flex;
-  gap: 0.85rem;
-  align-items: flex-start;
+  position: relative;
+  padding-left: 38px;
 }
 
 .value-list__flame {
-  flex: none;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-top: 0.15rem;
-  color: var(--ember);
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 16px;
+  height: 16px;
+  color: var(--coral);
 }
 
 .value-list strong {
-  display: block;
-  font-weight: 660;
-}
-
-.value-list span {
-  color: var(--ink-soft);
-  font-size: var(--text-sm);
+  color: var(--ink);
 }
 
 /* ---------- Accordion (stories, projects) ---------- */
 
 .accordion {
-  background: var(--white-warm);
-  border: 1px solid var(--cream-deep);
+  background: var(--white);
+  border: 1px solid var(--grey-line);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: box-shadow var(--speed-med) var(--ease-out);
 }
 
 .accordion + .accordion {
   margin-top: var(--space-3);
-}
-
-.accordion[open] {
-  box-shadow: var(--shadow-md);
 }
 
 .accordion summary {
@@ -212,9 +586,10 @@ a.card {
   padding: var(--space-5);
   cursor: pointer;
   list-style: none;
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-size: var(--text-lg);
+  font-weight: var(--weight-heading);
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--ink);
 }
 
 .accordion summary::-webkit-details-marker {
@@ -222,14 +597,14 @@ a.card {
 }
 
 .accordion summary:hover {
-  color: var(--ember-deep);
+  color: var(--coral-ink);
 }
 
 .accordion__chevron {
   flex: none;
   width: 1.4rem;
   height: 1.4rem;
-  color: var(--ember);
+  color: var(--coral);
   transition: transform var(--speed-med) var(--ease-out);
 }
 
@@ -241,7 +616,6 @@ a.card {
   padding: 0 var(--space-5) var(--space-5);
   display: grid;
   gap: var(--space-3);
-  color: var(--ink-soft);
 }
 
 /* ---------- Info rows (project details) ---------- */
@@ -249,50 +623,55 @@ a.card {
 .detail-grid {
   display: grid;
   gap: 0.4rem var(--space-5);
-  font-size: var(--text-sm);
+  font-size: 15px;
 }
 
 .detail-grid dt {
-  font-weight: 660;
+  font-weight: var(--weight-heading);
   color: var(--ink);
 }
 
 .detail-grid dd {
   margin: 0 0 var(--space-2);
-  color: var(--ink-soft);
 }
 
-/* ---------- Chips / filters ---------- */
+/* ---------- Filter tabs ---------- */
 
-.chip-row {
+.tab-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-5);
 }
 
-.chip {
-  padding: 0.4rem 1rem;
-  border: 1.5px solid var(--cream-deep);
-  border-radius: var(--radius-btn);
-  background: transparent;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--ink-soft);
-  transition:
-    background var(--speed-fast) var(--ease-out),
-    color var(--speed-fast) var(--ease-out),
-    border-color var(--speed-fast) var(--ease-out);
+.tab {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: var(--weight-body);
+  color: var(--ink);
 }
 
-.chip:hover {
-  border-color: var(--ember);
-  color: var(--ember-deep);
+.tab > span,
+.tab {
+  position: relative;
 }
 
-.chip.is-active {
-  background: var(--ember);
-  border-color: var(--ember);
-  color: #fff;
+.tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  border-top: 1px solid var(--coral);
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: transform 0.35s var(--ease-nav);
+}
+
+.tab:hover::after,
+.tab.is-active::after {
+  transform: scaleX(1);
 }
 
 /* ---------- Forms ---------- */
@@ -302,23 +681,36 @@ a.card {
   gap: var(--space-4);
 }
 
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 44rem) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .form-field {
   display: grid;
   gap: 0.4rem;
 }
 
 .form-field label {
-  font-size: var(--text-sm);
-  font-weight: 640;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .form-field input,
 .form-field textarea {
   font: inherit;
   padding: 0.8rem 1rem;
-  border: 1.5px solid var(--cream-deep);
-  border-radius: var(--radius-sm);
-  background: var(--white-warm);
+  border: 1px solid transparent;
+  border-radius: var(--radius-btn);
+  background: #f4f4f4;
   color: var(--ink);
   transition: border-color var(--speed-fast) var(--ease-out);
 }
@@ -326,20 +718,19 @@ a.card {
 .form-field input:focus,
 .form-field textarea:focus {
   outline: none;
-  border-color: var(--ember);
+  border-color: var(--coral);
 }
 
 .form-consent {
   display: flex;
   gap: 0.7rem;
   align-items: flex-start;
-  font-size: var(--text-xs);
-  color: var(--ink-soft);
+  font-size: 15px;
 }
 
 .form-consent input {
-  margin-top: 0.25rem;
-  accent-color: var(--ember);
+  margin-top: 0.4rem;
+  accent-color: var(--coral);
   width: 1rem;
   height: 1rem;
   flex: none;
@@ -347,9 +738,9 @@ a.card {
 
 .form-status {
   padding: var(--space-4);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
-  font-weight: 560;
+  border-radius: var(--radius-btn);
+  font-size: 15px;
+  font-weight: var(--weight-body);
 }
 
 .form-status--ok {
@@ -358,28 +749,21 @@ a.card {
 }
 
 .form-status--error {
-  background: #fbe4dc;
+  background: #ffe9e4;
   color: #93331b;
 }
 
-/* ---------- Arch image frame (fireplace motif) ---------- */
+/* ---------- Photo frame (inner pages) ---------- */
 
-.arch-frame {
-  border-radius: var(--radius-arch);
+.photo-frame {
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
 }
 
-.arch-frame img {
+.photo-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--speed-slow) var(--ease-out);
-}
-
-/* Same gentle warmth cards have — photos respond to the cursor */
-.arch-frame:hover img {
-  transform: scale(1.03);
 }
 
 /* ---------- Timeline (Apie mus) ---------- */
@@ -400,15 +784,16 @@ a.card {
   top: 0.5rem;
   bottom: 0.5rem;
   width: 2px;
-  border-radius: 2px;
-  background: linear-gradient(var(--flame), var(--ember));
-  opacity: 0.45;
+  background: var(--coral);
+  opacity: 0.3;
 }
 
+/* Resting state stays readable (>=4.5:1) so the copy is legible even if
+   the observer never fires; kindling lifts it the rest of the way. */
 .timeline li {
   position: relative;
   padding-left: var(--space-6);
-  opacity: 0.45;
+  opacity: 0.75;
   transform: translateX(-4px);
   transition:
     opacity var(--speed-slow) var(--ease-out),
@@ -423,22 +808,18 @@ a.card {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--cream-deep);
-  box-shadow: 0 0 0 4px var(--cream);
-  transition: background var(--speed-slow) var(--ease-out), box-shadow var(--speed-slow) var(--ease-out);
+  background: var(--grey-line);
+  box-shadow: 0 0 0 4px var(--white);
+  transition: background var(--speed-slow) var(--ease-out);
 }
 
-/* Milestones kindle one by one as they scroll into view */
 .timeline li.is-lit {
   opacity: 1;
   transform: none;
 }
 
 .timeline li.is-lit::before {
-  background: var(--fire-gradient);
-  box-shadow:
-    0 0 0 4px var(--cream),
-    0 0 14px 2px rgba(224, 92, 16, 0.45);
+  background: var(--coral);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -450,31 +831,42 @@ a.card {
 
 .timeline strong {
   display: block;
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
+  font-size: 17px;
   margin-bottom: 0.3rem;
 }
 
 .timeline p {
-  color: var(--ink-soft);
-  font-size: var(--text-sm);
+  font-size: 15px;
   max-width: 60ch;
 }
 
-/* ---------- Page hero (inner pages) ---------- */
+/* ---------- Page hero (inner pages) ----------
+   The original opens every inner page with a 54px title and a hairline. */
 
-/* Transparent — the fixed warm backdrop shows through */
 .page-hero {
-  padding-block: var(--space-7) var(--space-6);
+  padding-block: 35px 0;
 }
 
 .page-hero h1 {
-  font-size: var(--text-3xl);
-  max-width: 24ch;
+  font-size: var(--h-section);
+  line-height: 62px;
+}
+
+.page-hero__rule {
+  border: none;
+  border-top: 1px solid var(--grey-line);
+  margin-top: 30px;
 }
 
 .page-hero .lead {
   margin-top: var(--space-4);
+}
+
+@media (max-width: 999px) {
+  .page-hero h1 {
+    font-size: 34px;
+    line-height: 1.2;
+  }
 }
 
 /* ---------- Contact info block ---------- */
@@ -485,23 +877,22 @@ a.card {
 }
 
 .contact-card strong {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
+  font-size: 18px;
+  color: var(--ink);
 }
 
 .contact-card a {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  font-weight: 600;
 }
 
 .contact-card a svg {
   flex: none;
-  color: var(--ember);
+  color: var(--coral);
 }
 
 .contact-card .muted {
   color: var(--ink-faint);
-  font-size: var(--text-sm);
+  font-size: 15px;
 }

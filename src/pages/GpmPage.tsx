@@ -21,9 +21,10 @@ export function GpmPage() {
           <div className="split split--start">
             <div>
               <ol className="steps">
+                {/* These steps are the page's top-level sections, so h2 */}
                 {gpmPage.steps.map((step) => (
                   <li key={step.title}>
-                    <h3>{step.title}</h3>
+                    <h2>{step.title}</h2>
                     {step.lines.map((line) => (
                       <p key={line.slice(0, 30)}>{line}</p>
                     ))}

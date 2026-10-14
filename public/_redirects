@@ -1,6 +1,43 @@
-# Cloudflare Pages SPA fallback — serve index.html for all non-asset routes
+# Cloudflare Pages redirects.
+#
+# 1. Legacy WordPress URLs -> their place in the new site.
+# 2. Trailing-slash normalisation.
+# 3. SPA fallback (must stay last).
+
+# --- Legacy WordPress service slug ---
 /supervizija-profesiniu-santykiu-konsultavimas /supervizija 301
 /supervizija-profesiniu-santykiu-konsultavimas/ /supervizija 301
+
+# --- Legacy WordPress project pages -> the matching card on /projektai ---
+/projektas/placiau-nei-ekranai /projektai#placiau-nei-ekranai 301
+/projektas/debeikiu-vaiku-dienos-centro-paslaugu-uztikrinimo-ir-kokybes-gerinimo-projektas /projektai#vdc-paslaugu-uztikrinimas-2025 301
+/projektas/socialiniu-paslaugu-testinumo-pletros-ir-kokybes-uztikrinimo-projektas /projektai#socialiniu-paslaugu-testinumo-pletra-2024 301
+/projektas/debeikiu-vaiku-dienos-centro-kiemo-aplinkos-pritaikymas-ir-paslaugu-pletra /projektai#vdc-kiemo-aplinkos-pritaikymas-2024 301
+/projektas/debeikiu-vaiku-dienos-centro-socialiniu-paslaugu-testinumo-ir-kokybes-uztikrinimo-2023-m-projektas /projektai#vdc-testinumas-2023 301
+/projektas/debeikiu-vaiku-dienos-centro-socialiniu-paslaugu-testinumo-ir-kokybes-uztikrinimo-2022-m-projektas /projektai#vdc-testinumas-2022 301
+/projektas/debeikiu-vaiku-dienos-centro-socialiniu-paslaugu-testinumo-ir-kokybes-uztikrinimo-2021-m-projektas /projektai#vdc-testinumas-2021 301
+/projektas/association-femmes-deurope-assisted-by-its-lithuanian-group-members-supported-the-installation-of-sollar-power-panels-in-debeikiai-day-center /projektai#femmes-deurope-saules-elektrine-2023 301
+/projektas/nvo-socialinio-verslo-kurimas-ir-pletra /projektai#nvo-socialinis-verslas 301
+/projektas/nvo-sildymo-subsidija-2022 /projektai#nvo-sildymo-subsidija-2022 301
+/projektas/jojimo-uzsiemimai-vaikams-2022 /projektai#jojimo-uzsiemimai-2022 301
+/projektas/vaiku-dienos-centro-dalinio-kiemo-sutvarkymo-ir-pritaikymo-veiklai-darbai-pagal-partn-vdc /projektai#partn-vdc-kiemas-2022 301
+/projektas/partneris-projekte-anyksciu-rajono-savivaldybes-mokyklu-pazangos-skatinimas-diegiant-vaiko-emocines-geroves-aplinkos-vega-modeli /projektai#vega-modelis 301
+/projektas/pokyciu-sparnai-2020-2022 /projektai#pokyciu-sparnai 301
+/projektas/stipri-seima-stipri-visuomene-2021 /projektai#stipri-seima-2021 301
+/projektas/stipri-seima-stipri-visuomene-2020 /projektai#stipri-seima-2020 301
+/projektas/paraiska-paramai-gauti-2021 /projektai#paraiska-paramai-2021 301
+/projektas/paraiska-paramai-gauti-2020 /projektai#paraiska-paramai-2020 301
+# Two legacy slugs end in a ″ (double-prime) character that encodes
+# unpredictably; the splat below catches them and any future stragglers.
+/projektas/* /projektai 301
+
+# --- Legacy WordPress taxonomy / blog URLs ---
+/project-type/* /projektai 301
+/author/* / 301
+/category/* / 301
+/pirmasis-irasas / 301
+
+# --- Trailing-slash normalisation ---
 /apie-mus/ /apie-mus 301
 /vaiku-dienos-centras/ /vaiku-dienos-centras 301
 /apsaugotas-bustas/ /apsaugotas-bustas 301
@@ -12,4 +49,6 @@
 /ataskaitos-dokumentai/ /ataskaitos-dokumentai 301
 /kontaktai/ /kontaktai 301
 /privatumo-politika/ /privatumo-politika 301
+
+# --- SPA fallback ---
 /* /index.html 200

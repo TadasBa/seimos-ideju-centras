@@ -2,9 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
-// Self-hosted fonts (latin + latin-ext for Lithuanian diacritics)
-import '@fontsource-variable/bricolage-grotesque/index.css'
-import '@fontsource-variable/inter/index.css'
+// Self-hosted fonts (latin + latin-ext for Lithuanian diacritics), the same
+// three families the original seimosidejucentras.lt loads:
+// Montserrat for text, TikTok Sans for the desktop menu, Open Sans for the
+// mobile slide-out menu.
+import '@fontsource-variable/montserrat/index.css'
+import '@fontsource-variable/tiktok-sans/index.css'
+import '@fontsource-variable/open-sans/index.css'
 
 import './styles/tokens.css'
 import './styles/base.css'

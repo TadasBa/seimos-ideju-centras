@@ -40,7 +40,7 @@ export function SupervisionPage() {
         <div className="container">
           <div className="split split--reverse split--start">
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={supervision.supervisorImage} alt={supervision.supervisorImageAlt} loading="lazy" />
               </div>
             </div>

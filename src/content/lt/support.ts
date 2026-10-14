@@ -28,6 +28,8 @@ export const supportPage = {
   helpOutro: 'Kartu galime suteikti vaikams daugiau saugumo ir galimybių augti.',
 
   donateCta: 'Skirti paramą',
+  // MakeCommerce donation project (from the original site's embed)
+  donationProject: '733bfe6e-89db-4d51-bca8-5b33084b5910',
   gpmCta: 'Skirti 1,2 % GPM',
   rulesLabel: 'Paramos taisyklės (PDF)',
 }

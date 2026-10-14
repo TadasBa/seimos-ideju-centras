@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
-import { SectionHeading } from '../components/SectionHeading'
 import { ChevronDownIcon } from '../components/icons'
 import { projects, projectsPage } from '../content/lt/projects'
 
@@ -31,19 +30,20 @@ export function ProjectsPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <SectionHeading as="h1" title={projectsPage.title}>
-            <p className="lead">{projectsPage.intro}</p>
-          </SectionHeading>
+          <h1>{projectsPage.title}</h1>
+          <p className="lead">{projectsPage.intro}</p>
+          <hr className="page-hero__rule" />
         </div>
       </section>
 
       <section className="section--tight" style={{ paddingBottom: 'var(--space-8)' }}>
         <div className="container">
           <div className="projects-toolbar">
-            <div className="chip-row" role="group" aria-label="Filtruoti pagal metus">
+            <div className="tab-row" role="group" aria-label="Filtruoti pagal metus">
               <button
                 type="button"
-                className={`chip ${activeYear === null ? 'is-active' : ''}`}
+                className={`tab ${activeYear === null ? 'is-active' : ''}`}
+                aria-pressed={activeYear === null}
                 onClick={() => setActiveYear(null)}
               >
                 {projectsPage.filterAll}
@@ -52,7 +52,8 @@ export function ProjectsPage() {
                 <button
                   key={year}
                   type="button"
-                  className={`chip ${activeYear === year ? 'is-active' : ''}`}
+                  className={`tab ${activeYear === year ? 'is-active' : ''}`}
+                  aria-pressed={activeYear === year}
                   onClick={() => setActiveYear(year)}
                 >
                   {year}
