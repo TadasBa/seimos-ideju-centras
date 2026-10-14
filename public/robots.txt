@@ -1,8 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
 
-# Indexing is intentionally disabled until the final custom domain is routed.
-# When ready, change this file to:
-# User-agent: *
-# Allow: /
-# Sitemap: https://seimosidejucentras.lt/sitemap.xml
+Sitemap: https://seimosidejucentras.lt/sitemap.xml
