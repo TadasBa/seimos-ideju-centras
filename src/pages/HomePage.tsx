@@ -1,198 +1,234 @@
+import { useCallback, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
-import { WordTrailBand } from '../components/WordTrailBand'
-import { SectionHeading } from '../components/SectionHeading'
-import { MediaCard } from '../components/MediaCard'
-import { ArrowRightIcon, FlameIcon } from '../components/icons'
+import { Scribble } from '../components/Scribble'
+import { AT_90, Reveal, SplitText } from '../components/motion'
+import { ParallaxCircle, useTileParallax } from '../components/parallax'
+import { DragCarousel } from '../components/DragCarousel'
+import { VideoLightbox } from '../components/VideoLightbox'
+import { RichText } from '../components/RichText'
+import { CheckIcon, ChildrenIcon, HandsIcon, HouseIcon, PlayIcon } from '../components/icons'
 import { org } from '../content/lt/common'
 import {
   aboutSection,
-  ctaBand,
   hero,
   heroValues,
   homeMedia,
-  mediaSection,
+  projectsSection,
   services,
   servicesSection,
   storiesSection,
 } from '../content/lt/home'
-import { projects, projectsPage } from '../content/lt/projects'
+import { projects } from '../content/lt/projects'
 import { stories } from '../content/lt/stories'
+import type { MediaItem, Project, ServiceSummary } from '../content/types'
+
+const serviceIcons = {
+  children: ChildrenIcon,
+  house: HouseIcon,
+  hands: HandsIcon,
+}
 
 export function HomePage() {
   useDocumentMeta(null, org.description)
-
-  const latestProjects = projects.slice(0, 4)
+  const [video, setVideo] = useState<MediaItem | null>(null)
+  const closeVideo = useCallback(() => setVideo(null), [])
 
   return (
     <>
       {/* ---------- Hero ---------- */}
       <section className="hero">
         <div className="container hero__inner">
-          {/* On phones this block alone fills the first screen */}
-          <div className="hero__lead">
-            <div className="hero__media">
-              <div className="arch-frame">
-                <img src={hero.image} alt={hero.imageAlt} fetchPriority="high" />
-              </div>
-            </div>
-            <div className="hero__copy">
-              <h1>VšĮ Šeimos idėjų centras</h1>
-              <p className="hero__text">{hero.text}</p>
-            </div>
-          </div>
-
-          <div className="hero__more">
-            <div className="hero__values">
-              <h2>{hero.valuesTitle}</h2>
+          <Reveal className="hero__copy">
+            <h1 className="hl-heading">
+              <Scribble>{hero.title}</Scribble>
+            </h1>
+            <p className="hero__text">{hero.text}</p>
+            <div className="fancy-list">
+              <strong className="fancy-list__label">{hero.valuesTitle}</strong>
               <ul>
                 {heroValues.map((value) => (
                   <li key={value.title}>
-                    <FlameIcon /> {value.title}
+                    <CheckIcon className="fancy-list__icon" />
+                    <strong>{value.title}</strong>
                   </li>
                 ))}
               </ul>
             </div>
+          </Reveal>
 
-            <div className="hero__actions">
-              <a href="#paslaugos" className="btn btn--fire">
-                {hero.primaryCta.label}
-              </a>
-              <Link to={hero.secondaryCta.to} className="btn btn--ghost">
-                {hero.secondaryCta.label}
-              </Link>
+          <div className="hero__media">
+            {/* The original masks a tall image with an arch shape */}
+            <div className="arch">
+              <img src={hero.image} alt={hero.imageAlt} width="688" height="1030" fetchPriority="high" />
             </div>
           </div>
         </div>
       </section>
 
       {/* ---------- Services ---------- */}
-      <section className="section" id="paslaugos">
+      <section className="home-services">
         <div className="container">
-          <div className="stories-intro">
-            <SectionHeading eyebrow={servicesSection.eyebrow} title={servicesSection.title} />
-            <Link to="/kontaktai" className="btn btn--ghost">
+          <div className="section-head">
+            <SplitText as="h2" text={servicesSection.title} />
+            <Link to="/kontaktai" className="text-link">
               {servicesSection.ctaLabel}
             </Link>
           </div>
-          <div className="media-grid">
-            {services.map((service) => (
-              <Link key={service.slug} to={service.slug} className="card service-card">
-                <div className="service-card__media">
-                  <img src={service.image} alt={service.imageAlt} loading="lazy" />
-                </div>
-                <div className="service-card__body">
-                  <h3>{service.title}</h3>
-                  <p>{service.excerpt}</p>
-                  <span className="service-card__more">
-                    Plačiau <ArrowRightIcon />
-                  </span>
-                </div>
-              </Link>
+
+          <div className="tiles">
+            {services.map((service, index) => (
+              <Reveal key={service.slug} delay={(index + 1) * 100}>
+                <ServiceTile service={service} />
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------- About strip ---------- */}
-      <section className="section section--alt">
+      {/* ---------- About ---------- */}
+      <section className="home-about">
         <div className="container">
-          <div className="history-strip">
-            <div className="history-strip__year">{aboutSection.year}</div>
-            <div>
-              <p className="eyebrow">{aboutSection.eyebrow}</p>
-              <h2 className="section-title">{aboutSection.title}</h2>
-              {aboutSection.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)} className="lead" style={{ marginBottom: 'var(--space-3)' }}>
-                  {paragraph}
-                </p>
-              ))}
-              <Link to="/apie-mus" className="btn btn--ghost" style={{ marginTop: 'var(--space-3)' }}>
-                {aboutSection.ctaLabel}
-              </Link>
-            </div>
+          <Reveal effect="fade-in" trigger={AT_90} className="about-col">
+            <ParallaxCircle className="about-col__circle" />
+            <h2 className="hl-heading">
+              <Scribble>{aboutSection.titleHighlight}</Scribble>
+              {aboutSection.titleRest}
+            </h2>
+            {aboutSection.paragraphs.map((paragraph) => (
+              <SplitText key={paragraph.slice(0, 24)} as="p" text={paragraph} className="about-col__text" />
+            ))}
+          </Reveal>
+          {/* Outside the fading column, as on the original */}
+          <div className="about-col__link">
+            <Link to={aboutSection.ctaTo} className="text-link">
+              {aboutSection.ctaLabel}
+            </Link>
           </div>
         </div>
       </section>
 
       {/* ---------- Media ---------- */}
-      <section className="section">
+      <section className="home-media">
+        <div className="container media-pair">
+          {homeMedia.map((item) => (
+            <VideoCard key={item.url} item={item} onPlay={setVideo} />
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- Projects ---------- */}
+      <section className="home-projects">
         <div className="container">
-          <div className="stories-intro">
-            <SectionHeading eyebrow={mediaSection.eyebrow} title={mediaSection.title} />
-            <Link to="/spaudoje" className="btn btn--ghost">
-              {mediaSection.ctaLabel}
+          <div className="section-head">
+            <SplitText as="h2" text={projectsSection.title} />
+            <Link to="/projektai" className="text-link">
+              {projectsSection.ctaLabel}
             </Link>
           </div>
-          <div className="media-grid">
-            {homeMedia.map((item) => (
-              <MediaCard key={item.url} item={item} />
+
+          <DragCarousel label="Naujausi projektai" indicator="tooltip" attraction={0.02} className="projects-carousel">
+            {projects.slice(0, projectsSection.count).map((project) => (
+              <ProjectCard key={project.id} project={project} />
             ))}
-          </div>
+          </DragCarousel>
         </div>
       </section>
 
-      {/* ---------- Projects preview ---------- */}
-      <section className="section section--alt">
+      {/* ---------- Inspiring stories ---------- */}
+      <section className="home-stories">
         <div className="container">
-          <div className="stories-intro">
-            <SectionHeading eyebrow={projectsPage.title} title="Naujausi projektai" />
-            <Link to="/projektai" className="btn btn--ghost">
-              Visi projektai
-            </Link>
-          </div>
-          <div className="media-grid">
-            {latestProjects.map((project) => (
-              <Link key={project.id} to={`/projektai#${project.id}`} className="card service-card">
-                {project.image ? (
-                  <div className="service-card__media">
-                    <img src={project.image} alt="" loading="lazy" />
-                  </div>
-                ) : null}
-                <div className="service-card__body">
-                  <span className="project-year">{project.year}</span>
-                  <h3 style={{ marginTop: 'var(--space-3)', fontSize: 'var(--text-md)', lineHeight: 1.4 }}>
-                    {project.title}
-                  </h3>
-                </div>
-              </Link>
-            ))}
+          <div className="story-card">
+            <h2 className="hl-heading">
+              <Scribble>{storiesSection.title}</Scribble>
+            </h2>
+            <DragCarousel label={storiesSection.title} indicator="circle" wrap progress className="stories-carousel">
+              {stories.map((story) => (
+                <article key={story.id} className="story">
+                  <h3>{story.title}</h3>
+                  {story.paragraphs.map((paragraph) => (
+                    <p key={paragraph.slice(0, 32)}>
+                      <RichText text={paragraph} />
+                    </p>
+                  ))}
+                </article>
+              ))}
+            </DragCarousel>
           </div>
         </div>
       </section>
 
-      {/* ---------- Success stories ---------- */}
-      <section className="section">
-        <div className="container">
-          <div className="stories-intro">
-            <SectionHeading eyebrow={storiesSection.eyebrow} title={storiesSection.title}>
-              <p className="lead">{storiesSection.text}</p>
-            </SectionHeading>
-          </div>
-          <div className="media-grid">
-            {stories.map((story) => (
-              <Link key={story.id} to={`/apsaugotas-bustas#${story.id}`} className="card">
-                <h3 style={{ fontSize: 'var(--text-lg)' }}>{story.title}</h3>
-                <p>{story.paragraphs[0]}</p>
-                <span className="service-card__more" style={{ marginTop: 'var(--space-4)' }}>
-                  Skaityti visą istoriją <ArrowRightIcon />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- CTA band with word trail ---------- */}
-      <WordTrailBand words={ctaBand.words}>
-        <div className="container cta-band__inner">
-          <h2>{ctaBand.title}</h2>
-          <p>{ctaBand.text}</p>
-          <Link to="/kontaktai" className="btn btn--fire">
-            {ctaBand.ctaLabel}
-          </Link>
-        </div>
-      </WordTrailBand>
+      <VideoLightbox videoId={video?.youtubeId ?? null} title={video?.title ?? ''} onClose={closeVideo} />
     </>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+
+function ServiceTile({ service }: { service: ServiceSummary }) {
+  const boxRef = useRef<HTMLAnchorElement>(null)
+  const layerRef = useRef<HTMLDivElement>(null)
+  useTileParallax(boxRef, layerRef)
+  const Icon = serviceIcons[service.icon]
+
+  return (
+    <Link ref={boxRef} to={service.slug} className="tile">
+      <div ref={layerRef} className="tile__layer">
+        <img src={service.image} alt={service.imageAlt} loading="lazy" />
+      </div>
+      <div className="tile__body">
+        <Icon className="tile__icon" />
+        <h3>{service.title}</h3>
+        <p>{service.excerpt}</p>
+      </div>
+    </Link>
+  )
+}
+
+function VideoCard({ item, onPlay }: { item: MediaItem; onPlay: (item: MediaItem) => void }) {
+  const thumbnail = (
+    <span className="video-card__thumb">
+      <img src={item.image} alt="" loading="lazy" />
+      <span className="video-card__play">
+        <PlayIcon />
+      </span>
+    </span>
+  )
+
+  return (
+    <div className="video-card">
+      {item.youtubeId ? (
+        <button type="button" className="video-card__link" onClick={() => onPlay(item)}>
+          {thumbnail}
+          <span className="sr-only">Žiūrėti: {item.title}</span>
+        </button>
+      ) : (
+        <a className="video-card__link" href={item.url} target="_blank" rel="noreferrer">
+          {thumbnail}
+          <span className="sr-only">Klausyti: {item.title}</span>
+        </a>
+      )}
+      <p className="video-card__caption">{item.title}</p>
+    </div>
+  )
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <Link to={`/projektai#${project.id}`} className="pcard" draggable={false}>
+      <div className="pcard__bg">
+        {project.image ? <img src={project.image} alt="" loading="lazy" draggable={false} /> : null}
+      </div>
+      <div className="pcard__content">
+        <span className="pcard__year">{project.year}</span>
+        {/* Inline heading in a 29px-leading block, as on the original:
+            that is what spaces the title lines 33px apart. */}
+        <div className="pcard__main">
+          <h3 className="pcard__title">
+            <span>{project.title}</span>
+          </h3>
+        </div>
+      </div>
+    </Link>
   )
 }

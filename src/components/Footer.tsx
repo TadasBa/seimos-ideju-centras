@@ -1,21 +1,36 @@
 import { Link } from 'react-router-dom'
 import { footer, org } from '../content/lt/common'
-import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from './icons'
 
 export function Footer() {
   return (
     <footer className="site-footer">
       <div className="container">
         <div className="site-footer__grid">
-          <div className="site-footer__brand">
-            <span className="site-footer__logo-chip">
-              <img src="/images/logo.png" alt={org.name} width="167" height="90" />
-            </span>
-            <p>{org.description}</p>
+          <div>
+            <h2>{footer.contactsTitle}</h2>
+            <p>
+              <strong>{org.contacts.director.name}</strong>
+              <br />
+              {org.contacts.director.role}
+              <br />
+              <a href={`tel:${org.contacts.director.phoneHref}`}>{org.contacts.director.phone}</a>
+              <br />
+              {/* Shown obfuscated like the original, but still clickable */}
+              <a className="site-footer__plain" href={`mailto:${org.email}`} aria-label={org.email}>
+                {footer.emailDisplay}
+              </a>
+            </p>
+            <p>
+              <strong>Registracijos adresas</strong> ir adresas korespondencijai:{' '}
+              <a href={org.mapUrl} target="_blank" rel="noreferrer">
+                {footer.addressStreet}
+              </a>
+              {footer.addressRest}
+            </p>
           </div>
 
           <div>
-            <h3>{footer.servicesTitle}</h3>
+            <h2>{footer.servicesTitle}</h2>
             <ul>
               {footer.services.map((service) => (
                 <li key={service.to}>
@@ -23,7 +38,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <h3 style={{ marginTop: 'var(--space-5)' }}>{footer.linksTitle}</h3>
+          </div>
+
+          <div>
+            <h2>{footer.linksTitle}</h2>
             <ul>
               {footer.links.map((link) => (
                 <li key={link.to}>
@@ -32,40 +50,14 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
-          <div>
-            <h3>{footer.contactsTitle}</h3>
-            <address>
-              <span>
-                {org.contacts.director.name}
-                <br />
-                {org.contacts.director.role}
-              </span>
-              <a href={`tel:${org.contacts.director.phoneHref}`}>
-                <PhoneIcon /> {org.contacts.director.phone}
-              </a>
-              <a href={`mailto:${org.email}`}>
-                <MailIcon /> {org.email}
-              </a>
-              <a href={org.mapUrl} target="_blank" rel="noreferrer">
-                <MapPinIcon /> {org.address}
-              </a>
-              <a href={org.facebook} target="_blank" rel="noreferrer">
-                <FacebookIcon /> Facebook
-              </a>
-            </address>
-          </div>
         </div>
 
-        <div className="site-footer__bottom">
-          <span>{footer.copyright}</span>
-          <nav aria-label="Papildomos nuorodos">
-            <Link to={footer.privacy.to}>{footer.privacy.label}</Link>
-            <a href={footer.supportRules.href} target="_blank" rel="noreferrer">
-              {footer.supportRules.label}
-            </a>
-          </nav>
-        </div>
+        <p className="site-footer__bottom">
+          {footer.copyright} <Link to={footer.privacy.to}>{footer.privacy.label}</Link>,{' '}
+          <a href={footer.supportRules.href} target="_blank" rel="noreferrer">
+            {footer.supportRules.label}
+          </a>
+        </p>
       </div>
     </footer>
   )

@@ -1,5 +1,6 @@
 import type { Story } from '../content/types'
 import { ChevronDownIcon } from './icons'
+import { RichText } from './RichText'
 
 interface StoryAccordionProps {
   stories: Story[]
@@ -18,7 +19,9 @@ export function StoryAccordion({ stories, openId }: StoryAccordionProps) {
           </summary>
           <div className="accordion__body">
             {story.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              <p key={paragraph.slice(0, 40)}>
+                <RichText text={paragraph} />
+              </p>
             ))}
           </div>
         </details>

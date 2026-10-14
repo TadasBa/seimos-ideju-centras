@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import { SectionHeading } from '../components/SectionHeading'
-import { CheckIcon, FlameIcon, MapPinIcon } from '../components/icons'
+import { Scribble } from '../components/Scribble'
+import { CheckIcon, MapPinIcon } from '../components/icons'
 import { dayCenter } from '../content/lt/dayCenter'
 
 export function DayCenterPage() {
@@ -32,7 +33,7 @@ export function DayCenterPage() {
               </p>
             </SectionHeading>
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={dayCenter.heroImage} alt={dayCenter.heroImageAlt} />
               </div>
             </div>
@@ -42,18 +43,19 @@ export function DayCenterPage() {
 
       <section className="section section--alt">
         <div className="container">
-          <SectionHeading title={dayCenter.valuesTitle} />
-          <div className="media-grid">
+          <h2 className="section-title">
+            <Scribble>{dayCenter.valuesTitle}</Scribble>:
+          </h2>
+          <ul className="value-list">
             {dayCenter.values.map((value) => (
-              <div key={value.title} className="card value-card">
-                <FlameIcon className="value-list__flame" />
-                <h3 style={{ fontSize: 'var(--text-lg)', margin: 'var(--space-3) 0 var(--space-2)' }}>
-                  {value.title}
-                </h3>
-                <p>{value.description}</p>
-              </div>
+              <li key={value.title}>
+                <CheckIcon className="value-list__flame" />
+                <span>
+                  <strong>{value.title}</strong> – {value.description}
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
@@ -72,7 +74,7 @@ export function DayCenterPage() {
               </ul>
             </div>
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={dayCenter.activitiesImage} alt={dayCenter.activitiesImageAlt} loading="lazy" />
               </div>
             </div>
@@ -84,7 +86,7 @@ export function DayCenterPage() {
         <div className="container">
           <div className="split split--reverse split--start">
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={dayCenter.infoImage} alt={dayCenter.infoImageAlt} loading="lazy" />
               </div>
             </div>
@@ -142,7 +144,7 @@ export function DayCenterPage() {
               </Link>
             </div>
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={dayCenter.campImage} alt={dayCenter.campImageAlt} loading="lazy" />
               </div>
             </div>

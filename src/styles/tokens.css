@@ -1,50 +1,64 @@
 /* ============================================================
    Design tokens — VšĮ Šeimos idėjų centras
-   Warm "fireplace" palette drawn from the organisation logo:
-   hands forming a flame — cream, ember orange, amber, warm ink.
+
+   Every value here was measured on the live seimosidejucentras.lt
+   (computed styles at 1440px and 390px), not estimated.
    ============================================================ */
 
 :root {
   /* Surfaces */
-  --cream: #faf5ee;
-  --cream-soft: #f4ecdf;
-  --cream-deep: #eee2d0;
-  --white-warm: #fffdf9;
+  --white: #ffffff;
+  --grey-band: #eeeeee; /* "Ieškote pagalbos?" band */
+  --grey-shape: #f7f7f7; /* decorative circles */
+  --grey-line: #e2e2e2;
 
   /* Text */
-  --ink: #2d241e;
-  --ink-soft: #5d5047;
-  --ink-faint: #8a7c70;
+  --ink: #0a0a0a;
+  --ink-footer: #333333;
+  --ink-nav: #555555;
+  --ink-faint: #6b6b6b;
 
-  /* Fire accents */
-  --ember: #e05c10;
-  --ember-deep: #c04a08;
-  --flame: #f59e0b;
-  --flame-soft: #fcd34d;
-  --blush: #fbe8d8;
+  /* Accents.
+     These match the original exactly. Note the original's coral and its
+     white-on-amber top bar fall short of WCAG AA (2.8:1 and 2.1:1). For an
+     AA-compliant variant set --coral-ink: #c23f1c and --amber-ink: #3d2200. */
+  --coral: #ff6c50;
+  --coral-ink: var(--coral);
+  --coral-deep: #e8543a;
+  --amber: #fe9931;
+  --amber-ink: #ffffff;
+  --ocm-close: #ff1053; /* mobile menu close button */
 
-  /* Dark band ("night by the fire") */
-  --night: #221914;
-  --night-line: #4d3b2d;
-  --on-night: #f7efe5;
-  --on-night-soft: #cbb9a8;
+  /* Typography — the original loads Montserrat 500/800, TikTok Sans 600
+     and Open Sans. Its headings ask for 600 but only the 800 face exists,
+     so 800 is what visitors actually see. */
+  --font-body: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+  --font-nav: 'TikTok Sans Variable', 'TikTok Sans', system-ui, sans-serif;
+  --font-ocm: 'Open Sans Variable', 'Open Sans', system-ui, sans-serif;
+  --weight-body: 500;
+  --weight-heading: 800;
 
-  /* Gradients */
-  --fire-gradient: linear-gradient(120deg, var(--flame) 0%, var(--ember) 70%);
-  --fire-gradient-soft: linear-gradient(140deg, #fde8c8 0%, #fbd3ac 100%);
+  --text-base: 16px;
+  --leading-base: 29px;
 
-  /* Typography */
-  --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', system-ui, sans-serif;
-  --font-body: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  /* Heading scale (desktop / phone) */
+  --h-section: 54px; /* "Paslaugos", "Projektai", inner page titles */
+  --h-cta: 34px; /* "Ieškote pagalbos?" */
+  --h-highlight: 2vw; /* scribbled headings, footer headings */
 
-  --text-xs: 0.8125rem;
-  --text-sm: 0.9375rem;
-  --text-md: 1rem;
-  --text-lg: clamp(1.0625rem, 0.98rem + 0.4vw, 1.25rem);
-  --text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.55rem);
-  --text-2xl: clamp(1.6rem, 1.32rem + 1.25vw, 2.2rem);
-  --text-3xl: clamp(1.95rem, 1.55rem + 1.9vw, 2.9rem);
-  --text-hero: clamp(2.2rem, 1.65rem + 2.6vw, 3.5rem);
+  /* Inner-page scale. The original sets all body copy in one #0a0a0a, so
+     the "body/soft" text tokens resolve to the same ink. */
+  --ink-body: var(--ink);
+  --ink-soft: var(--ink);
+  --grey-soft: #f4f4f4;
+  --coral-wash: #ffe9e4;
+  --text-xs: 13px;
+  --text-sm: 15px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-hero: 54px;
+  --shadow-md: 0 10px 30px -14px rgba(10, 10, 10, 0.2);
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -57,27 +71,32 @@
   --space-8: 4rem;
   --space-9: 6rem;
 
-  /* Radii — the arch is the site's recurring "fireplace frame" motif */
-  --radius-btn: 6px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-arch: 999px 999px 20px 20px;
+  /* Radii */
+  --radius-btn: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 10px;
 
-  /* Shadows — warm, soft */
-  --shadow-sm: 0 1px 3px rgba(66, 43, 22, 0.08);
-  --shadow-md: 0 10px 30px -12px rgba(66, 43, 22, 0.22);
-  --shadow-lg: 0 24px 60px -20px rgba(66, 43, 22, 0.3);
-  --shadow-glow: 0 0 60px -10px rgba(245, 158, 11, 0.35);
-
-  /* Motion */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Motion — curves lifted from the original's theme CSS/JS */
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-swift: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-nav: cubic-bezier(0.52, 0.01, 0.16, 1);
+  --ease-tile: cubic-bezier(0.05, 0.2, 0.1, 1);
+  --ease-zoom: cubic-bezier(0.15, 0.75, 0.5, 1);
+  --ease-underline: cubic-bezier(0.2, 0.75, 0.5, 1);
+  --ease-ocm: cubic-bezier(0.15, 0.2, 0.1, 1);
+  --ease-out: var(--ease-swift);
   --speed-fast: 180ms;
   --speed-med: 320ms;
   --speed-slow: 700ms;
 
   /* Layout */
-  --container: 72rem;
+  --container: 1425px;
+  --container-pad: 90px;
   --container-narrow: 46rem;
-  --header-height: 4.5rem;
+  --topbar-height: 40px;
+  --nav-height: 90px;
+  --nav-height-small: 61px;
+  --header-height: 130px; /* topbar + nav at rest */
+  --header-height-mobile: 64px;
 }

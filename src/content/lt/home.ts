@@ -1,11 +1,11 @@
 import type { MediaItem, ServiceSummary, ValueItem } from '../types'
 
+/* Copy and structure follow the original home page section by section. */
+
 export const hero = {
   title: 'VšĮ Šeimos idėjų centras',
-  text: 'Nevyriausybinė organizacija, teikianti socialines paslaugas vaikams, šeimoms, proto / psichikos negalią turintiems asmenims bei prisidedanti prie visuomenės gerovės per švietimą, mokymą ir profesinių santykių konsultavimą (superviziją).',
+  text: 'nevyriausybinė organizacija, teikianti socialines paslaugas vaikams, šeimoms, proto / psichikos negalią turintiems asmenims bei prisidedanti prie visuomenės gerovės per švietimą, mokymą ir profesinių santykių konsultavimą (superviziją).',
   valuesTitle: 'Mūsų vertybės:',
-  primaryCta: { label: 'Mūsų paslaugos', to: '#paslaugos' },
-  secondaryCta: { label: 'Susisiekti', to: '/kontaktai' },
   image: '/images/hero-hands.webp',
   imageAlt: 'Rankos, sudėtos kartu – palaikymo ir bendrystės simbolis',
 }
@@ -18,8 +18,7 @@ export const heroValues: ValueItem[] = [
 ]
 
 export const servicesSection = {
-  eyebrow: 'Paslaugos',
-  title: 'Kuo galime padėti?',
+  title: 'Paslaugos',
   ctaLabel: 'Susisiekti dėl paslaugos',
 }
 
@@ -29,44 +28,43 @@ export const services: ServiceSummary[] = [
     title: 'Vaikų dienos centras',
     excerpt:
       'Socialinių įgūdžių ugdymas, pagalba pamokų ruošoje, amatų ir menų užsiėmimai vaikams iš socialinę riziką patiriančių šeimų.',
-    image: '/images/vdc-veikla.jpg',
+    image: '/images/paslauga-vaiku-dienos-centras.jpg',
     imageAlt: 'Vaikai užsiėmimų metu vaikų dienos centre',
+    icon: 'children',
   },
   {
     slug: '/apsaugotas-bustas',
     title: 'Apsaugotas būstas',
     excerpt:
       'Alternatyva institucinei globai asmenims su proto ar psichikos negalia. Teikiame apgyvendinimo paslaugas bendruomenėje.',
-    image: '/images/apsaugotas-bustas-veikla.jpg',
-    imageAlt: 'Žmonės, dirbantys kartu bendruomenėje',
+    image: '/images/paslauga-apsaugotas-bustas.jpg',
+    imageAlt: 'Negalią turintys žmonės dirba kartu',
+    icon: 'house',
   },
   {
     slug: '/supervizija',
-    title: 'Supervizija / Profesinių santykių konsultavimas',
+    title: 'Supervizija/ Profesinių santykių konsultavimas',
     excerpt: 'Tikslas – atvira, stipri organizacija ir matomas, įgalintas darbuotojas.',
-    image: '/images/supervizija-seminaras.jpg',
-    imageAlt: 'Supervizijos seminaro akimirka',
+    image: '/images/paslauga-supervizija.jpg',
+    imageAlt: 'Spalvoti pieštukai savanorių užsiėmime',
+    icon: 'hands',
   },
 ]
 
 export const aboutSection = {
-  eyebrow: 'Apie mus',
-  year: '2018',
-  title: 'VšĮ Šeimos idėjų centras',
+  /* The heading is split so the first phrase can carry the scribble. */
+  titleHighlight: 'VšĮ Šeimos idėjų centras',
+  titleRest: ' įkurtas 2018 m., tęsiant Debeikių vaikų dienos centro veiklą.',
   paragraphs: [
-    'Įkurtas 2018 m., tęsiant Debeikių vaikų dienos centro veiklą.',
     'Mūsų misija – teikti kokybiškas ir efektyvias socialines paslaugas bei profesionalią pagalbą, siekiant visuomenės, bendruomenės, šeimos ir asmens gerovės.',
     'Nuo 2020 metų teikiame apgyvendinimo apsaugotame būste socialines paslaugas suaugusiems asmenims ir šeimoms, turintiems proto ar psichikos negalią. Nuo 2024 m. pradėjome teikti profesinių santykių konsultavimo paslaugas (superviziją).',
   ],
-  ctaLabel: 'Daugiau apie mus',
+  /* On the original this link introduces the press videos below. */
+  ctaLabel: 'Daugiau spaudoje',
+  ctaTo: '/spaudoje',
 }
 
-export const mediaSection = {
-  eyebrow: 'Spaudoje',
-  title: 'Daugiau spaudoje',
-  ctaLabel: 'Visos publikacijos',
-}
-
+/* The first video links out to LRT; the second plays in a lightbox. */
 export const homeMedia: MediaItem[] = [
   {
     title:
@@ -78,33 +76,19 @@ export const homeMedia: MediaItem[] = [
   {
     title: 'Aklas pasimatymas S08E37 | Gytis Baltrūnas | „Įgalinti žmogų – tai nieko nedaryti už jį“',
     url: 'https://youtube.com/watch?v=YSKpBnskdhQ',
+    youtubeId: 'YSKpBnskdhQ',
     image: '/images/media-aklas-pasimatymas.jpg',
     tag: 'YouTube',
   },
 ]
 
-export const storiesSection = {
-  eyebrow: 'Įkvepiančios istorijos',
-  title: 'Istorijos, kurios prasidėjo iš naujo',
-  text: 'Apsaugoto būsto paslauga žmonėms padeda susigrąžinti savarankiškumą ir gyvenimą bendruomenėje. Štai keletas tikrų mūsų paslaugų gavėjų kelių.',
+export const projectsSection = {
+  title: 'Projektai',
+  ctaLabel: 'Visi projektai',
+  /* The original's home carousel shows the five most recent projects */
+  count: 5,
 }
 
-export const ctaBand = {
-  title: 'Ieškote pagalbos? Susisiekite su mumis',
-  text: 'Atsakysime į klausimus apie paslaugas, padėsime įvertinti situaciją ir rasti tinkamiausią pagalbos kelią.',
-  ctaLabel: 'Susisiekti',
-  words: [
-    'Supervizija',
-    'Apsaugotas būstas',
-    'Socialinės paslaugos',
-    'Vaikų dienos centras',
-    'Pagalba',
-    'Bendruomenė',
-    'Šeima',
-    'Savarankiškumas',
-    'Apgyvendinimas',
-    'Profesiniai santykiai',
-    'Palaikymas',
-    'Įgalinimas',
-  ],
+export const storiesSection = {
+  title: 'Įkvepiančios istorijos:',
 }

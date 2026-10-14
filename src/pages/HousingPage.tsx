@@ -26,7 +26,7 @@ export function HousingPage() {
               </p>
             </SectionHeading>
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={housing.heroImage} alt={housing.heroImageAlt} />
               </div>
             </div>
@@ -73,7 +73,7 @@ export function HousingPage() {
               </ul>
             </div>
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={housing.howImage} alt={housing.howImageAlt} loading="lazy" />
               </div>
             </div>
@@ -120,7 +120,7 @@ export function HousingPage() {
         <div className="container">
           <div className="split split--reverse split--start">
             <div className="split__media">
-              <div className="arch-frame">
+              <div className="photo-frame">
                 <img src={housing.livingImage} alt={housing.livingImageAlt} loading="lazy" />
               </div>
             </div>

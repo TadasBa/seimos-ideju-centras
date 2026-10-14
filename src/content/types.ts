@@ -25,6 +25,8 @@ export interface ServiceSummary {
   excerpt: string
   image: string
   imageAlt: string
+  /** Outline mark shown on the home page tile. */
+  icon: 'children' | 'house' | 'hands'
 }
 
 export interface Story {
@@ -62,6 +64,8 @@ export interface MediaItem {
   url: string
   image: string
   tag: string
+  /** When set, the video plays in an on-page lightbox instead of linking out. */
+  youtubeId?: string
 }
 
 export interface DocumentLink {

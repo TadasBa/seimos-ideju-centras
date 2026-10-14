@@ -51,21 +51,26 @@ export function ContactForm() {
 
   return (
     <form className="form-grid" onSubmit={onSubmit} noValidate>
-      <div className="form-field">
-        <label htmlFor="contact-name">{form.name} *</label>
-        <input id="contact-name" name="name" type="text" autoComplete="name" required />
-        {errors.name ? <span className="form-status form-status--error">{errors.name}</span> : null}
-      </div>
+      {/* Name / email / phone share one row, as on the original site */}
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="contact-name">{form.name} *</label>
+          <input id="contact-name" name="name" type="text" autoComplete="name" required />
+          {errors.name ? <span className="form-status form-status--error">{errors.name}</span> : null}
+        </div>
 
-      <div className="form-field">
-        <label htmlFor="contact-email">{form.email} *</label>
-        <input id="contact-email" name="email" type="email" autoComplete="email" required />
-        {errors.email ? <span className="form-status form-status--error">{errors.email}</span> : null}
-      </div>
+        <div className="form-field">
+          <label htmlFor="contact-email">{form.email} *</label>
+          <input id="contact-email" name="email" type="email" autoComplete="email" required />
+          {errors.email ? (
+            <span className="form-status form-status--error">{errors.email}</span>
+          ) : null}
+        </div>
 
-      <div className="form-field">
-        <label htmlFor="contact-phone">{form.phone}</label>
-        <input id="contact-phone" name="phone" type="tel" autoComplete="tel" />
+        <div className="form-field">
+          <label htmlFor="contact-phone">{form.phone}</label>
+          <input id="contact-phone" name="phone" type="tel" autoComplete="tel" />
+        </div>
       </div>
 
       <div className="form-field">

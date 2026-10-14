@@ -3,6 +3,9 @@ import type { NavItem } from '../types'
 export const org = {
   name: 'VšĮ Šeimos idėjų centras',
   shortName: 'Šeimos idėjų centras',
+  /* Runs across the amber announcement bar at the top of every page. */
+  tagline:
+    'VšĮ Šeimos idėjų centras – nevyriausybinė organizacija, teikianti socialines, švietimo paslaugas vaikams, šeimoms, proto / psichikos negalią turintiems asmenims.',
   description:
     'Nevyriausybinė organizacija, teikianti socialines paslaugas vaikams, šeimoms, proto / psichikos negalią turintiems asmenims bei prisidedanti prie visuomenės gerovės per švietimą, mokymą ir profesinių santykių konsultavimą (superviziją).',
   supportCode: '304972120',
@@ -28,22 +31,38 @@ export const org = {
   },
 } as const
 
-/* Kept short on purpose — Spaudoje, Ataskaitos ir kt. live in the footer. */
+/* Mirrors the original site's header menu, in the same order. */
 export const nav: NavItem[] = [
+  { label: 'Pagrindinis', to: '/' },
   { label: 'Apie mus', to: '/apie-mus' },
-  { label: 'Paslaugos', to: '/#paslaugos' },
+  { label: 'Ataskaitos / Dokumentai', to: '/ataskaitos-dokumentai' },
   { label: 'Projektai', to: '/projektai' },
+  { label: 'Parama', to: '/parama' },
   { label: 'Kontaktai', to: '/kontaktai' },
 ]
 
-export const navCta: NavItem = { label: 'Parama', to: '/parama' }
+/* The grey "Ieškote pagalbos?" band shown before the footer on every page.
+   Trail words and colours are the original's own settings. */
+export const ctaBand = {
+  title: 'Ieškote pagalbos? Susisiekite su mumis',
+  linkLabel: 'Susisiekite su mumis',
+  trailWords: [
+    'Socialinės paslaugos',
+    'Supervizija',
+    'Pagalba',
+    'Apgyvendinimas',
+    'Apsaugotas būstas',
+    'Profesiniai santykiai',
+  ],
+  trailColors: ['#ff6c50', '#ffa628', '#8ccbff', '#78cd6e', '#2ac4ea'],
+}
 
 export const footer = {
   servicesTitle: 'Paslaugos',
   services: [
     { label: 'Vaikų dienos centras', to: '/vaiku-dienos-centras' },
     { label: 'Apsaugotas būstas', to: '/apsaugotas-bustas' },
-    { label: 'Supervizija / Profesinių santykių konsultavimas', to: '/supervizija' },
+    { label: 'Supervizija/ Profesinių santykių konsultavimas', to: '/supervizija' },
   ],
   linksTitle: 'Nuorodos',
   links: [
@@ -57,6 +76,10 @@ export const footer = {
   ],
   contactsTitle: 'Kontaktai',
   copyright: `© ${new Date().getFullYear()} VšĮ Šeimos idėjų centras.`,
-  privacy: { label: 'Privatumo politika', to: '/privatumo-politika' },
+  privacy: { label: 'Privatumo Politika', to: '/privatumo-politika' },
+  /* The original shows the address obfuscated against scrapers */
+  emailDisplay: 'info [eta] seimosidejucentras.lt',
+  addressStreet: 'Pakalnės g. 26B',
+  addressRest: ', Leliūnų k. Anykščių r. LT29362',
   supportRules: { label: 'Paramos taisyklės', href: '/documents/paramos-taisykles.pdf' },
 } as const
