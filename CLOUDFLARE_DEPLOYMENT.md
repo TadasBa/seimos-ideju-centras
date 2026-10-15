@@ -44,18 +44,22 @@ the dashboard. Change them in `wrangler.toml` and redeploy.
 | `CONTACT_TO` | Plain variable | `wrangler.toml` → `[vars]` |
 | `CONTACT_FROM` | Plain variable | `wrangler.toml` → `[vars]` (must be a sender verified in Resend) |
 | `CONTACT_RATE_LIMITER` | Workers KV binding | `wrangler.toml` → `[[kv_namespaces]]`, namespace `seimos-ideju-centras-contact-rate-limit` |
+| `TURNSTILE_SITE_KEY` | Plain variable (public) | `wrangler.toml` → `[vars]`; the form fetches it from `GET /api/contact` |
 | `RESEND_API_KEY` | Secret | Encrypted Cloudflare Pages secret — never in `wrangler.toml` or any committed file |
+| `TURNSTILE_SECRET_KEY` | Secret | Encrypted Cloudflare Pages secret — never in `wrangler.toml` or any committed file |
 
 The Node version for builds comes from `.node-version` / `.nvmrc` in the
 repository, so no `NODE_VERSION` variable is needed.
 
-### Setting the Resend API key
+### Setting the secrets
 
-Set `RESEND_API_KEY` as an encrypted secret, either with Wrangler (it prompts
-for the value, so the key never appears in shell history):
+Set `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` as encrypted secrets, either
+with Wrangler (it prompts for the value, so the key never appears in shell
+history):
 
 ```bash
 npx wrangler pages secret put RESEND_API_KEY --project-name seimos-ideju-centras
+npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name seimos-ideju-centras
 ```
 
 or in the dashboard under `Workers & Pages > seimos-ideju-centras > Settings >
@@ -64,6 +68,29 @@ running deployment picks it up.
 
 Secrets are stored per environment. If preview deployments should send email
 too, add the secret for the preview environment as well.
+
+### Turnstile
+
+The contact form is protected by Cloudflare Turnstile in Managed mode (the
+mode is set on the widget in the Cloudflare dashboard under `Turnstile`).
+The widget's allowed hostnames must include `seimosidejucentras.lt`, and
+any preview hostname you want to test the form on.
+
+How a submission is checked, in `functions/api/contact.ts`:
+
+1. The browser gets the site key from `GET /api/contact` and renders the
+   widget, which produces a token.
+2. The form sends the token as `turnstileToken` with the message.
+3. The function rejects a missing token, applies the KV rate limit, then
+   verifies the token server-side with Turnstile Siteverify, sending the
+   secret, the token and the visitor's `CF-Connecting-IP`.
+4. Resend is only called after Siteverify returns `success: true`. Any
+   failure (missing token, Siteverify error or timeout, `success: false`)
+   returns `403` with `code: "turnstile"`; the form shows a generic error
+   and resets the widget for a fresh token.
+
+Tokens are single-use and expire after about 5 minutes; the widget refreshes
+expired tokens automatically, and the form resets it after every submission.
 
 ### KV namespace
 
@@ -92,11 +119,15 @@ npm run preview:cf
 ```
 
 `wrangler pages dev` reads `[vars]` and the KV binding from `wrangler.toml`
-(KV is simulated locally). Put the Resend key in a local `.dev.vars` file,
-which is gitignored and must stay that way:
+(KV is simulated locally). Put the secrets in a local `.dev.vars` file,
+which is gitignored and must stay that way. Values in `.dev.vars` override
+`wrangler.toml` locally, so you can use Cloudflare's Turnstile test keys
+(they always pass) instead of the production site key:
 
 ```txt
 RESEND_API_KEY=...
+TURNSTILE_SITE_KEY=1x00000000000000000000AA
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 ```
 
 ## Automatic deploy pipeline

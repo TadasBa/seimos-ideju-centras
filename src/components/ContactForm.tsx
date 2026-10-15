@@ -1,17 +1,43 @@
-import { useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import { contactsPage } from '../content/lt/contacts'
 import { org } from '../content/lt/common'
+import { Turnstile, type TurnstileHandle } from './Turnstile'
 
-type Status = 'idle' | 'sending' | 'success' | 'error'
+type Status = 'idle' | 'sending' | 'success' | 'error' | 'turnstile-error'
 
 /**
  * Contact form posting to the Cloudflare Pages Function at /api/contact.
- * Includes a honeypot field ("website") that silently rejects bots.
+ * Includes a honeypot field ("website") that silently rejects bots, and a
+ * Cloudflare Turnstile token that the function verifies before sending.
  */
 export function ContactForm() {
   const { form } = contactsPage
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Record<string, string>>({})
+
+  // The public site key lives in wrangler.toml and is served by the function
+  const [siteKey, setSiteKey] = useState<string | null>(null)
+  const [turnstileUnavailable, setTurnstileUnavailable] = useState(false)
+  const [token, setToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileHandle>(null)
+  const markUnavailable = useCallback(() => setTurnstileUnavailable(true), [])
+
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/contact', { headers: { Accept: 'application/json' } })
+      .then((response) => (response.ok ? response.json() : Promise.reject(new Error(`HTTP ${response.status}`))))
+      .then((config: { turnstileSiteKey?: string }) => {
+        if (cancelled) return
+        if (config.turnstileSiteKey) setSiteKey(config.turnstileSiteKey)
+        else setTurnstileUnavailable(true)
+      })
+      .catch(() => {
+        if (!cancelled) setTurnstileUnavailable(true)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -30,6 +56,9 @@ export function ContactForm() {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) validation.email = form.validation.email
     if (!message) validation.message = form.validation.message
     if (!consent) validation.consent = form.validation.consent
+    if (Object.keys(validation).length === 0 && !token && !turnstileUnavailable) {
+      validation.turnstile = form.turnstile.waiting
+    }
 
     setErrors(validation)
     if (Object.keys(validation).length > 0) return
@@ -39,13 +68,20 @@ export function ContactForm() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, message, consent, website }),
+        body: JSON.stringify({ name, email, phone, message, consent, website, turnstileToken: token ?? '' }),
       })
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      if (!response.ok) {
+        const body = (await response.json().catch(() => null)) as { code?: string } | null
+        setStatus(body?.code === 'turnstile' ? 'turnstile-error' : 'error')
+        return
+      }
       setStatus('success')
       formElement.reset()
     } catch {
       setStatus('error')
+    } finally {
+      // A token is single-use whether or not the send succeeded: get a new one
+      turnstileRef.current?.reset()
     }
   }
 
@@ -93,6 +129,15 @@ export function ContactForm() {
       </label>
       {errors.consent ? <span className="form-status form-status--error">{errors.consent}</span> : null}
 
+      {siteKey ? (
+        <Turnstile ref={turnstileRef} siteKey={siteKey} onToken={setToken} onUnavailable={markUnavailable} />
+      ) : null}
+      {errors.turnstile ? (
+        <span className="form-status form-status--error" role="alert">
+          {errors.turnstile}
+        </span>
+      ) : null}
+
       <div>
         <button type="submit" className="btn btn--fire" disabled={status === 'sending'}>
           {status === 'sending' ? form.sending : form.submit}
@@ -104,9 +149,14 @@ export function ContactForm() {
           {form.success}
         </p>
       ) : null}
-      {status === 'error' ? (
+      {status === 'turnstile-error' ? (
         <p className="form-status form-status--error" role="alert">
-          {form.error}{' '}
+          {form.turnstile.failed}
+        </p>
+      ) : null}
+      {status === 'error' || (turnstileUnavailable && status !== 'success') ? (
+        <p className="form-status form-status--error" role="alert">
+          {status === 'error' ? form.error : form.turnstile.unavailable}{' '}
           <a href={`mailto:${org.email}`} style={{ color: 'inherit', fontWeight: 700 }}>
             {org.email}
           </a>

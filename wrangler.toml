@@ -3,12 +3,14 @@ compatibility_date = "2026-07-03"
 pages_build_output_dir = "dist"
 
 # This file is the source of truth for the Pages project's variables and
-# bindings. RESEND_API_KEY is a secret: set it as an encrypted Pages secret
-# (see CLOUDFLARE_DEPLOYMENT.md), never here.
+# bindings. RESEND_API_KEY and TURNSTILE_SECRET_KEY are secrets: set them as
+# encrypted Pages secrets (see CLOUDFLARE_DEPLOYMENT.md), never here.
 
 [vars]
 CONTACT_TO = "info@seimosidejucentras.lt"
 CONTACT_FROM = "svetaine@forms.seimosidejucentras.lt"
+# Public Turnstile site key (Managed mode); served to the contact form
+TURNSTILE_SITE_KEY = "0x4AAAAAAFXXgRXhW_UJyaKj"
 
 # Existing namespace "seimos-ideju-centras-contact-rate-limit"
 [[kv_namespaces]]
