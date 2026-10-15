@@ -15,6 +15,9 @@ const SWIFT_OUT = 'cubic-bezier(0, 0.2, 0.2, 1)'
 const EASE_OUT_CUBIC = 'cubic-bezier(0.33, 1, 0.68, 1)'
 const EASE_OUT_QUART = 'cubic-bezier(0.25, 1, 0.5, 1)'
 const MAX_PILLS = 100
+/* Pills fade in a little slower than the original's 300ms, which softens
+   their appearance without changing the trail's rhythm. */
+const FADE_IN_MS = 450
 
 /**
  * Port of the original's `cflow-content-trail.js` (text mode, settings from
@@ -47,6 +50,14 @@ export function ContentTrail({ words, colors, frequency = 85, duration = 1.2 }: 
     const total = inMs + Math.max(outMs, fadeOutDelay + 300)
 
     const mouse = { x: 0, y: 0 }
+    // The band's viewport rect, measured only after a scroll or resize and
+    // only from an input event (when layout is clean). The animation loop
+    // never measures: mid-frame, the running pill animations would force a
+    // style and layout pass on every read.
+    let rect: DOMRect | null = null
+    const invalidateRect = () => {
+      rect = null
+    }
     const last = { x: 0, y: 0 }
     const cached = { x: 0, y: 0 }
     let hasInteracted = false
@@ -62,8 +73,9 @@ export function ContentTrail({ words, colors, frequency = 85, duration = 1.2 }: 
       pill.className = 'trail__pill'
       pill.textContent = words[Math.floor(Math.random() * words.length)]
       pill.style.setProperty('--pill-bg', colors[colorIndex % colors.length])
-      pill.style.left = `${cached.x}px`
-      pill.style.top = `${cached.y}px`
+      // `translate` composes before the animated transform, so the pill is
+      // placed on the compositor rather than through left/top layout.
+      pill.style.translate = `${cached.x}px ${cached.y}px`
       pill.style.zIndex = String(zIndex)
       el.appendChild(pill)
       pills.push(pill)
@@ -82,11 +94,11 @@ export function ContentTrail({ words, colors, frequency = 85, duration = 1.2 }: 
         ],
         { duration: total, fill: 'forwards' },
       )
-      // Opacity: in over 300ms, out over the last 300ms of the shrink.
+      // Opacity: in over FADE_IN_MS, out over the last 300ms of the shrink.
       pill.animate(
         [
           { opacity: 0, offset: 0, easing: EASE_OUT_CUBIC },
-          { opacity: 1, offset: 300 / total },
+          { opacity: 1, offset: FADE_IN_MS / total },
           { opacity: 1, offset: (inMs + fadeOutDelay) / total, easing: EASE_OUT_CUBIC },
           { opacity: 0, offset: Math.min((inMs + fadeOutDelay + 300) / total, 1) },
           ...(inMs + fadeOutDelay + 300 < total ? [{ opacity: 0, offset: 1 }] : []),
@@ -131,7 +143,8 @@ export function ContentTrail({ words, colors, frequency = 85, duration = 1.2 }: 
     }
 
     const onPointer = (clientX: number, clientY: number) => {
-      const rect = el.getBoundingClientRect()
+      if (!visible) return
+      rect ??= el.getBoundingClientRect()
       const x = clientX - rect.left
       const y = clientY - rect.top
       if (x < 0 || y < 0 || x > rect.width || y > rect.height) return
@@ -153,6 +166,10 @@ export function ContentTrail({ words, colors, frequency = 85, duration = 1.2 }: 
     }
 
     window.addEventListener('mousemove', onMouseMove, { passive: true })
+    window.addEventListener('scroll', invalidateRect, { passive: true })
+    window.addEventListener('resize', invalidateRect, { passive: true })
+    const resizeObserver = new ResizeObserver(invalidateRect)
+    resizeObserver.observe(el)
     if (isTouch) {
       window.addEventListener('touchstart', onTouch, { passive: true })
       window.addEventListener('touchmove', onTouch, { passive: true })
@@ -162,6 +179,7 @@ export function ContentTrail({ words, colors, frequency = 85, duration = 1.2 }: 
     const observer = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting
+        invalidateRect()
         if (visible) start()
       },
       { threshold: 0 },
@@ -170,6 +188,9 @@ export function ContentTrail({ words, colors, frequency = 85, duration = 1.2 }: 
 
     return () => {
       observer.disconnect()
+      resizeObserver.disconnect()
+      window.removeEventListener('scroll', invalidateRect)
+      window.removeEventListener('resize', invalidateRect)
       cancelAnimationFrame(rafId)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('touchstart', onTouch)

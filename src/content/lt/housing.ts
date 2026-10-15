@@ -3,15 +3,18 @@ export const housing = {
   subtitle: 'Apgyvendinimo apsaugotame būste paslaugos',
   intro:
     'Nuo 2020 metų teikiame apsaugoto būsto paslaugas suaugusiems asmenims ir šeimoms, turintiems proto ar psichikos negalią, taip pat socialinę riziką patiriantiems žmonėms.',
-  heroImage: '/images/apsaugotas-bustas-gyvenimas.jpg',
-  heroImageAlt: 'Apsaugoto būsto gyventojai kasdienėje veikloje centre',
+  heroImage: '/images/apsaugotas-bustas-namai.webp',
+  heroImageAlt: 'Apsaugoto būsto gyventojas savo namuose laiko ant rankų katę, šalia sėdi kitas gyventojas',
+  // Focal points for the cropped photo frames (CSS object-position)
+  heroImagePosition: '40% 50%',
 
   whatTitle: 'Kas yra apsaugoto būsto paslauga?',
   what: 'Apgyvendinimas apsaugotame būste – tai socialinės priežiūros paslauga, priskiriama bendruomeninėms paslaugoms, skirta suaugusiems asmenims su negalia ar socialinę riziką patiriantiems asmenims, kurie yra iš dalies savarankiški ir kuriems reikalinga minimali specialistų pagalba bei socialinių įgūdžių palaikymas ar ugdymas, siekiant gyventi savarankiškai bendruomenėje. Paslauga derinama su individualia atvejo vadybininko (socialinio darbuotojo) pagalba bei kitomis bendruomenėje teikiamomis paslaugomis, kurios padeda plėtoti, palaikyti ar atkurti socialinius ir savarankiško gyvenimo įgūdžius, siekiant kuo didesnio asmenų savarankiškumo ir gyvenimo kokybės.',
 
   howTitle: 'Kaip mes dirbame?',
-  howImage: '/images/apsaugotas-bustas-veikla.jpg',
-  howImageAlt: 'Socialinis darbuotojas dirba kartu su paslaugos gavėjais',
+  howImage: '/images/apsaugotas-bustas-arbata.webp',
+  howImageAlt: 'Apsaugoto būsto gyventoja virtuvėje pila karštą vandenį iš virdulio į puodelį',
+  howImagePosition: '25% 50%',
   how: [
     'Asmeniui ar šeimai suteikiama gyvenamoji vieta bendruomenėje. Viename būste dažniausiai gyvena ne daugiau kaip du dalinai savarankiški asmenys arba viena šeima (tuomet gyventojų skaičius neribojamas).',
     'Teikiant paslaugas, itin svarbus paslaugos gavėjo ir socialinio darbuotojo bendradarbiavimas bei pasitikėjimu grįstas ryšys. Dirbdami kartu su paslaugos gavėjais, mūsų socialiniai darbuotojai:',
@@ -54,8 +57,9 @@ export const housing = {
   ],
   livingOutro:
     'Atvejo vadybininkai palaiko reguliarų kontaktą, stebi situaciją, teikia emocinę ir praktinę pagalbą, motyvuoja, įgalina savarankiškai spręsti iškylančius sunkumus.',
-  livingImage: '/images/apsaugotas-bustas-darbas.jpg',
-  livingImageAlt: 'Apsaugoto būsto gyventojai kasdienėje veikloje',
+  livingImage: '/images/apsaugotas-bustas-virtuve.webp',
+  livingImageAlt: 'Apsaugoto būsto gyventojas virtuvėje plauna indus',
+  livingImagePosition: '50% 40%',
 
   financeTitle: 'Paslaugų finansavimas',
   finance: [
@@ -94,6 +98,32 @@ export const housing = {
     'artimasis ar globėjas (atstovas pagal įstatymą),',
     'socialinis darbuotojas ar kitas specialistas.',
   ],
+
+  galleryTitle: 'Akimirkos iš apsaugoto būsto',
+  // Alternating portrait / landscape, so the desktop row keeps every photo
+  // uncropped at one shared height.
+  gallery: [
+    {
+      src: '/images/apsaugotas-bustas-augintinis.webp',
+      alt: 'Apsaugoto būsto gyventojas savo kambaryje sėdi kėdėje ir laiko katę',
+      orientation: 'portrait',
+    },
+    {
+      src: '/images/apsaugotas-bustas-kompiuteris.webp',
+      alt: 'Apsaugoto būsto gyventojai namuose: viena dirba nešiojamuoju kompiuteriu, kita stovi šalia',
+      orientation: 'landscape',
+    },
+    {
+      src: '/images/apsaugotas-bustas-siuvinejimas.webp',
+      alt: 'Apsaugoto būsto gyventoja sėdi ant lovos ir siuvinėja',
+      orientation: 'portrait',
+    },
+    {
+      src: '/images/apsaugotas-bustas-prie-lango.webp',
+      alt: 'Apsaugoto būsto gyventoja sėdi savo kambaryje prie lango',
+      orientation: 'landscape',
+    },
+  ] as const,
 
   contactTitle: 'Turite klausimų ar norite pasikonsultuoti?',
   contactText: 'Susisiekite su mumis:',

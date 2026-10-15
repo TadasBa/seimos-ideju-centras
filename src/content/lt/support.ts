@@ -3,6 +3,8 @@ import type { Step } from '../types'
 export const supportPage = {
   title: 'Parama',
   intro: 'Prisidėkite prie Šeimos idėjų centro veiklos – jūsų parama kuria realų pokytį.',
+  heroImage: '/images/vdc-stovykla.webp',
+  heroImageAlt: 'Vaikų dienos centro vaikai vasaros stovykloje stebi gamtą',
 
   requisitesTitle: 'Paramos gavėjo rekvizitai',
   requisites: [

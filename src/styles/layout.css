@@ -466,10 +466,16 @@
   inset: 0;
   z-index: 10;
   pointer-events: none;
+  /* Adding a pill only lays out the trail, never the rest of the page */
+  contain: layout style;
 }
 
+/* Placed with the `translate` property (set per pill), centred by the
+   animated transform */
 .trail__pill {
   position: absolute;
+  left: 0;
+  top: 0;
   padding: 0.6em 0.8em;
   border-radius: 23px;
   background: var(--pill-bg);
@@ -667,4 +673,78 @@
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
+}
+
+/* Photo viewer (ImageLightbox): same overlay and toolbar, the photo fitted
+   to the screen, round previous / next buttons at the sides */
+.lightbox__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  animation: lightbox-in 0.3s ease;
+}
+
+.lightbox__counter {
+  display: grid;
+  place-items: center;
+  height: 44px;
+  padding-inline: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-top: -24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.lightbox__nav:hover {
+  background: var(--coral);
+}
+
+.lightbox__nav--prev {
+  left: 16px;
+}
+
+.lightbox__nav--next {
+  right: 16px;
+}
+
+.lightbox__nav svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.lightbox--image .lightbox__stage {
+  padding: 56px 80px;
+}
+
+@media (max-width: 690px) {
+  .lightbox--image .lightbox__stage {
+    padding: 56px 12px;
+  }
+
+  .lightbox__nav {
+    top: auto;
+    bottom: 16px;
+    margin-top: 0;
+  }
 }

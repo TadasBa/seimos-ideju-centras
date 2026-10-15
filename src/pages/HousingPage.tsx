@@ -1,7 +1,9 @@
+import { useCallback, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import { SectionHeading } from '../components/SectionHeading'
 import { StoryAccordion } from '../components/StoryAccordion'
+import { ImageLightbox } from '../components/ImageLightbox'
 import { CheckIcon, MailIcon, PhoneIcon } from '../components/icons'
 import { housing } from '../content/lt/housing'
 import { stories, storiesTitle } from '../content/lt/stories'
@@ -11,12 +13,14 @@ export function HousingPage() {
   useDocumentMeta(housing.title, housing.intro)
   const { hash } = useLocation()
   const openStoryId = hash ? hash.slice(1) : undefined
+  const [photoIndex, setPhotoIndex] = useState<number | null>(null)
+  const closePhoto = useCallback(() => setPhotoIndex(null), [])
 
   return (
     <>
       <section className="page-hero">
         <div className="container">
-          <div className="split">
+          <div className="split split--flush">
             <SectionHeading as="h1" title={housing.title}>
               <p className="lead" style={{ fontWeight: 560 }}>
                 {housing.subtitle}
@@ -27,7 +31,11 @@ export function HousingPage() {
             </SectionHeading>
             <div className="split__media">
               <div className="photo-frame">
-                <img src={housing.heroImage} alt={housing.heroImageAlt} />
+                <img
+                  src={housing.heroImage}
+                  alt={housing.heroImageAlt}
+                  style={{ objectPosition: housing.heroImagePosition }}
+                />
               </div>
             </div>
           </div>
@@ -43,7 +51,7 @@ export function HousingPage() {
 
       <section className="section section--alt">
         <div className="container">
-          <div className="split split--start">
+          <div className="split split--start split--flush">
             <div>
               <SectionHeading title={housing.howTitle} />
               {housing.how.map((paragraph) => (
@@ -74,7 +82,12 @@ export function HousingPage() {
             </div>
             <div className="split__media">
               <div className="photo-frame">
-                <img src={housing.howImage} alt={housing.howImageAlt} loading="lazy" />
+                <img
+                  src={housing.howImage}
+                  alt={housing.howImageAlt}
+                  loading="lazy"
+                  style={{ objectPosition: housing.howImagePosition }}
+                />
               </div>
             </div>
           </div>
@@ -118,10 +131,15 @@ export function HousingPage() {
 
       <section className="section section--alt">
         <div className="container">
-          <div className="split split--reverse split--start">
+          <div className="split split--reverse split--start split--flush">
             <div className="split__media">
               <div className="photo-frame">
-                <img src={housing.livingImage} alt={housing.livingImageAlt} loading="lazy" />
+                <img
+                  src={housing.livingImage}
+                  alt={housing.livingImageAlt}
+                  loading="lazy"
+                  style={{ objectPosition: housing.livingImagePosition }}
+                />
               </div>
             </div>
             <div>
@@ -206,6 +224,25 @@ export function HousingPage() {
           <StoryAccordion stories={stories} openId={openStoryId} />
         </div>
       </section>
+
+      {/* Photo gallery, between the stories and the site-wide contact band.
+          Up to 64rem it becomes a horizontally scrollable strip. */}
+      <section className="section">
+        <div className="container">
+          <SectionHeading title={housing.galleryTitle} />
+          <ul className="photo-gallery" aria-label={housing.galleryTitle}>
+            {housing.gallery.map((photo, i) => (
+              <li key={photo.src} className={`photo-gallery__item photo-gallery__item--${photo.orientation}`}>
+                <button type="button" className="photo-gallery__open" onClick={() => setPhotoIndex(i)}>
+                  <img src={photo.src} alt={photo.alt} loading="lazy" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <ImageLightbox images={housing.gallery} index={photoIndex} onChange={setPhotoIndex} onClose={closePhoto} />
     </>
   )
 }

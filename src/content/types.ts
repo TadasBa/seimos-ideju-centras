@@ -25,6 +25,8 @@ export interface ServiceSummary {
   excerpt: string
   image: string
   imageAlt: string
+  /** CSS object-position focal point for the tile's cropped photo. */
+  imagePosition?: string
   /** Outline mark shown on the home page tile. */
   icon: 'children' | 'house' | 'hands'
 }

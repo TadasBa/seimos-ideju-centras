@@ -37,8 +37,9 @@ export const services: ServiceSummary[] = [
     title: 'Apsaugotas būstas',
     excerpt:
       'Alternatyva institucinei globai asmenims su proto ar psichikos negalia. Teikiame apgyvendinimo paslaugas bendruomenėje.',
-    image: '/images/paslauga-apsaugotas-bustas.jpg',
-    imageAlt: 'Negalią turintys žmonės dirba kartu',
+    image: '/images/apsaugotas-bustas-namai.webp',
+    imageAlt: 'Apsaugoto būsto gyventojas savo namuose laiko ant rankų katę, šalia sėdi kitas gyventojas',
+    imagePosition: '55% 50%',
     icon: 'house',
   },
   {

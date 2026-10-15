@@ -23,38 +23,47 @@ export function SupportPage() {
 
   return (
     <>
-      <section className="page-hero">
+      {/* Intro and requisites beside a photo from the day center the
+          campaign supports */}
+      <section className="page-hero support-hero">
         <div className="container">
-          <SectionHeading as="h1" title={supportPage.title}>
-            <p className="lead">{supportPage.intro}</p>
-          </SectionHeading>
-        </div>
-      </section>
+          <div className="split split--flush">
+            <div>
+              <SectionHeading as="h1" title={supportPage.title}>
+                <p className="lead">{supportPage.intro}</p>
+              </SectionHeading>
 
-      <section className="section--tight" id="skirtiparama">
-        <div className="container">
-          <h2 className="section-title">{supportPage.requisitesTitle}</h2>
-          <div className="support-req">
-            {supportPage.requisites.map((requisite) => (
-              <div key={requisite.label} className="card">
-                <span className="muted">{requisite.label}</span>
-                <strong>
-                  {requisite.value}
-                  <button
-                    type="button"
-                    className="copy-btn"
-                    onClick={() => copy(requisite.value)}
-                    aria-label={`Kopijuoti: ${requisite.label}`}
-                  >
-                    {copied === requisite.value ? 'Nukopijuota ✓' : 'Kopijuoti'}
-                  </button>
-                </strong>
+              <div id="skirtiparama" className="support-hero__requisites">
+                <h2 className="section-title">{supportPage.requisitesTitle}</h2>
+                <div className="support-req support-req--stacked">
+                  {supportPage.requisites.map((requisite) => (
+                    <div key={requisite.label} className="card">
+                      <span className="muted">{requisite.label}</span>
+                      <strong>
+                        {requisite.value}
+                        <button
+                          type="button"
+                          className="copy-btn"
+                          onClick={() => copy(requisite.value)}
+                          aria-label={`Kopijuoti: ${requisite.label}`}
+                        >
+                          {copied === requisite.value ? 'Nukopijuota ✓' : 'Kopijuoti'}
+                        </button>
+                      </strong>
+                    </div>
+                  ))}
+                </div>
+                <p className="lead" style={{ marginTop: 'var(--space-5)', fontWeight: 580 }}>
+                  {supportPage.campaignNote}
+                </p>
               </div>
-            ))}
+            </div>
+            <div className="split__media">
+              <div className="photo-frame">
+                <img src={supportPage.heroImage} alt={supportPage.heroImageAlt} />
+              </div>
+            </div>
           </div>
-          <p className="lead" style={{ marginTop: 'var(--space-5)', fontWeight: 580 }}>
-            {supportPage.campaignNote}
-          </p>
         </div>
       </section>
 

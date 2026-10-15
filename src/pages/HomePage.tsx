@@ -174,7 +174,12 @@ function ServiceTile({ service }: { service: ServiceSummary }) {
   return (
     <Link ref={boxRef} to={service.slug} className="tile">
       <div ref={layerRef} className="tile__layer">
-        <img src={service.image} alt={service.imageAlt} loading="lazy" />
+        <img
+          src={service.image}
+          alt={service.imageAlt}
+          loading="lazy"
+          style={service.imagePosition ? { objectPosition: service.imagePosition } : undefined}
+        />
       </div>
       <div className="tile__body">
         <Icon className="tile__icon" />
