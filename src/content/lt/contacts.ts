@@ -17,6 +17,11 @@ export const contactsPage = {
     success: 'Ačiū! Jūsų žinutė išsiųsta. Susisieksime kaip galėdami greičiau.',
     error:
       'Nepavyko išsiųsti žinutės. Pabandykite dar kartą arba parašykite mums tiesiogiai el. paštu.',
+    turnstile: {
+      waiting: 'Palaukite, kol bus baigta saugumo patikra, ir bandykite dar kartą.',
+      failed: 'Nepavyko patvirtinti saugumo patikros. Pabandykite išsiųsti dar kartą.',
+      unavailable: 'Saugumo patikros įkelti nepavyko. Perkraukite puslapį arba parašykite mums el. paštu',
+    },
     validation: {
       name: 'Įrašykite savo vardą',
       email: 'Įrašykite teisingą el. pašto adresą',
